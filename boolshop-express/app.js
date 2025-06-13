@@ -1,4 +1,6 @@
 const express = require("express"); //import express
+const boolRouter = require('./router/boolshopRouter') // import router
+
 
 const app = express(); //uso express
 
@@ -11,6 +13,8 @@ app.use(express.json()); //json
 app.get("/", (req, res) => {
     res.send("Hello World!");
 });
+
+app.use('/api/boolShop', boolRouter)
 
 //listen
 app.listen(port, () => {
