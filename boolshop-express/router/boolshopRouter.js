@@ -4,7 +4,7 @@ const boolshopController = require("../controllers/boolshopController");
 
 //routes
 router.get("/", boolshopController.index);
-router.get("/game/:id", boolshopController.show);
+router.get("/:id", boolshopController.show);
 
 //export
 module.exports = router;

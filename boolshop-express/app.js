@@ -6,7 +6,7 @@ const errorHandler = require('./middlewares/errorHandler'); // import errorHandl
 
 const app = express(); //uso express
 
-const port = 3000; //porta
+const port = process.env.SERVER_PORT || 3000; //porta
 
 app.use(express.static("public")); //static files
 app.use(express.json()); //json
