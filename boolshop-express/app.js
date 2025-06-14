@@ -1,8 +1,9 @@
+
+require('dotenv').config();
 const express = require("express"); //import express
 const boolRouter = require('./router/boolshopRouter'); // import router
 const notFound = require('./middlewares/notFound'); // import notFound
 const errorHandler = require('./middlewares/errorHandler'); // import errorHandler
-
 
 const app = express(); //uso express
 
