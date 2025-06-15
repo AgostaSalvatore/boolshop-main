@@ -5,10 +5,10 @@ import { useParams } from 'react-router-dom';
 
 
 const DetailPage = () => {
-  const {id} = useParams();
+  const { id } = useParams();
 
   const [videogame, setVideogame] = useState(null);
-  
+
   const fetchVideogame = () => {
     axios.get(`http://127.0.0.1:3000/api//${id}`).then((resp) => {
       setVideogame(resp.data)
@@ -20,7 +20,7 @@ const DetailPage = () => {
   }, []);
   return (
     <div>
-      
+      <h1>Details Page</h1>
     </div>
   )
 }

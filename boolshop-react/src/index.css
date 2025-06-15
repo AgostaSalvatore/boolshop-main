@@ -3,3 +3,28 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+/* HEADER */
+header {
+  background-color: rgb(123, 176, 219);
+}
+
+.logo {
+  width: 160px;
+}
+
+header .btn {
+  border: 2px solid rgb(16, 98, 167);
+  color: white;
+  background-color: rgb(16, 98, 167);
+
+}
+
+header .btn:hover {
+  background-color: rgb(16, 98, 167);
+  color: white;
+}
+
+header .form-control {
+  width: 300px;
+}
