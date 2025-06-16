@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import DetailPage from "./pages/DetailPage"
 
 function App() {
 
   return (
     <>
-      
+      <DetailPage />
     </>
   )
 }
