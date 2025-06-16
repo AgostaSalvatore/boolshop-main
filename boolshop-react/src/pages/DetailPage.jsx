@@ -2,6 +2,9 @@ import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
+import ProductGallery from "../components/ProductGallery";
+import ProductInfo from "../components/ProductInfo";
+import ProductDescription from "../components/ProductDescription";
 
 
 const DetailPage = () => {
@@ -18,28 +21,28 @@ const DetailPage = () => {
   useEffect(() => {
     fetchVideogame();
   }, []);
+  
   return (
-<<<<<<< HEAD
     <div>
-      <h1>Details Page</h1>
-    </div>
-=======
-    <>    
-            <div className="col-12 col-md-6 col-lg-4">
-              <img src={videogame.image} className="img-fluid" alt="videogame" /> 
-            </div>
-            <div className="col-12 col-md-6 col-lg-8">
-              <h1>{videogame.title}</h1>
-              <h3>{videogame.director}</h3>
-              <p>{videogame.abstract}</p>
-            </div>
-            <div className="col-12">
-              <div className="d-flex justify-content-between">
-                <h3>Our community reviews</h3>
-              </div>
+      <h1>Detail Page</h1>
+      <div className="container">
+        <div className="row">
+          <div className="col-8">
+            <ProductGallery images={videogame.imgs}/>
           </div>
-    </>
->>>>>>> frontend-detail_page
+          <div className="col-4">
+            <ProductInfo />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-8">
+            <ProductDescription />
+          </div>
+        </div>
+      </div>
+      
+
+    </div>
   )
 }
 
