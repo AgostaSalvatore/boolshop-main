@@ -1,10 +1,9 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import DefaultLayout from '../layout/DefaultLayout'
 import Header from './components/Header'
 import Homepage from './pages/Homepage'
 import DetailPage from './pages/DetailPage'
-
 
 function App() {
 
