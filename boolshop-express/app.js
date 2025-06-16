@@ -13,7 +13,7 @@ const cors = require('cors') //cors
 app.use(express.static("public")); //static files
 app.use(express.json()); //json
 app.use(setImagePath); //set image path
-app.use(cors({ origin: process.env.FA_APP }));
+app.use(cors({ origin: process.env.FE_APP }));
 
 //base route
 app.get("/", (req, res) => {
