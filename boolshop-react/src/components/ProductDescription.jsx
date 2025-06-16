@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ProductDescription = () => {
+const ProductDescription = ({ description }) => {
   return (
     <>
         <div className="container-fluid py-5">
@@ -9,9 +9,7 @@ const ProductDescription = () => {
                     <h3 className="mb-4">Descrizione del Prodotto</h3>
                     
                     <p className="lead">
-                        Scopri il primo gioco di Sandfall Interactive, interamente realizzato 
-                        in Unreal Engine 5, con incredibili grafiche e una colonna sonora 
-                        emozionante.
+                        {description}
                     </p>
 
                     <h4>"Anno dopo anno, la Pittrice ci cancella".</h4>

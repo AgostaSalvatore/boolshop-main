@@ -4,7 +4,7 @@ const ProductGallery = ({ images, productName }) => {
       <div className="bg-light rounded shadow-lg p-5">
         <div className="text-center">
           <img
-            src={images?.[0]}
+            src={images}
             alt={productName}
             className="img-fluid rounded shadow"
             style={{maxHeight: '500px', objectFit: 'cover'}}

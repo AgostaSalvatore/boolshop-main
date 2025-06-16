@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ProductInfo = () => {
+const ProductInfo = ({ title, genre, price, release_year, software_house, discount }) => {
   return (
     <>
         {/* Action buttons */}
@@ -16,25 +16,22 @@ const ProductInfo = () => {
         {/* Product details */}
         <div className="row g-3">
           <div className="col-sm-6">
-            <strong>Linea di prodotto:</strong> PlayStation 5
+            <strong>Nome:</strong> {title}
           </div>
           <div className="col-sm-6">
-            <strong>Codice a barre:</strong> 3391892034264
+            <strong>Genere:</strong> {genre}
           </div>
           <div className="col-sm-6">
-            <strong>Genere:</strong> Strategico
+            <strong>Prezzo:</strong> {price}
           </div>
           <div className="col-sm-6">
-            <strong>Età consigliata:</strong> 18 Anni
+            <strong>Anno di rilascio:</strong> {release_year}
           </div>
           <div className="col-sm-6">
-            <strong>Disponibile dal:</strong> 24/04/2025
+            <strong>Casa produttrice:</strong> {software_house}
           </div>
           <div className="col-sm-6">
-            <strong>Dimensioni:</strong> 17.1 x 13.5 x 1.4 cm
-          </div>
-          <div className="col-sm-6">
-            <strong>Peso:</strong> 80 grammi
+            <strong>Sconto:</strong> {discount}
           </div>
         </div>
     </>
