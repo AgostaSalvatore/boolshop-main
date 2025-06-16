@@ -19,27 +19,21 @@ const DetailPage = () => {
     fetchVideogame();
   }, []);
   return (
-<<<<<<< HEAD
-    <div>
-      <h1>Details Page</h1>
-    </div>
-=======
-    <>    
-            <div className="col-12 col-md-6 col-lg-4">
-              <img src={videogame.image} className="img-fluid" alt="videogame" /> 
-            </div>
-            <div className="col-12 col-md-6 col-lg-8">
-              <h1>{videogame.title}</h1>
-              <h3>{videogame.director}</h3>
-              <p>{videogame.abstract}</p>
-            </div>
-            <div className="col-12">
-              <div className="d-flex justify-content-between">
-                <h3>Our community reviews</h3>
-              </div>
-          </div>
+    <>
+      <div className="col-12 col-md-6 col-lg-4">
+        <img src={videogame.image} className="img-fluid" alt="videogame" />
+      </div>
+      <div className="col-12 col-md-6 col-lg-8">
+        <h1>{videogame.title}</h1>
+        <h3>{videogame.director}</h3>
+        <p>{videogame.abstract}</p>
+      </div>
+      <div className="col-12">
+        <div className="d-flex justify-content-between">
+          <h3>Our community reviews</h3>
+        </div>
+      </div>
     </>
->>>>>>> frontend-detail_page
   )
 }
 
