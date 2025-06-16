@@ -2,7 +2,7 @@ const express = require("express"); //import express
 const boolRouter = require('./router/boolshopRouter'); // import router
 const notFound = require('./middlewares/notFound'); // import notFound
 const errorHandler = require('./middlewares/errorHandler'); // import errorHandler
-
+const setImagePath = require('./middlewares/imagePath'); // import setImagePath
 
 const app = express(); //uso express
 
@@ -12,6 +12,7 @@ const cors = require('cors') //cors
 
 app.use(express.static("public")); //static files
 app.use(express.json()); //json
+app.use(setImagePath); //set image path
 app.use(cors({ origin: process.env.FA_APP }));
 
 //base route
