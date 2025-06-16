@@ -20,7 +20,7 @@ const DetailPage = () => {
 
   useEffect(() => {
     fetchVideogame();
-  },[]);
+  }, []);
 
   return (
     <div>
@@ -28,7 +28,7 @@ const DetailPage = () => {
       <div className="container">
         <div className="row">
           <div className="col-8">
-            <ProductGallery images={videogame?.image}/>
+            <ProductGallery images={videogame?.image} />
           </div>
           <div className="col-4">
             <ProductInfo />
@@ -40,7 +40,7 @@ const DetailPage = () => {
           </div>
         </div>
       </div>
-      
+
 
     </div>
   )
