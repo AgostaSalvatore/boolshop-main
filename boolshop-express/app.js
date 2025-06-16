@@ -8,8 +8,11 @@ const app = express(); //uso express
 
 const port = process.env.SERVER_PORT || 3000; //porta
 
+const cors = require('cors') //cors
+
 app.use(express.static("public")); //static files
 app.use(express.json()); //json
+app.use(cors({ origin: process.env.FA_APP }));
 
 //base route
 app.get("/", (req, res) => {
