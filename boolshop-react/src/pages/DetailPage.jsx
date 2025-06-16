@@ -10,7 +10,7 @@ const DetailPage = () => {
   const [videogame, setVideogame] = useState(null);
 
   const fetchVideogame = () => {
-    axios.get(`http://127.0.0.1:3000/api//${id}`).then((resp) => {
+    axios.get(`http://127.0.0.1:3000/api/boolshop/${id}`).then((resp) => {
       setVideogame(resp.data)
     }).catch((err) => console.log(err));
   }
@@ -19,9 +19,27 @@ const DetailPage = () => {
     fetchVideogame();
   }, []);
   return (
+<<<<<<< HEAD
     <div>
       <h1>Details Page</h1>
     </div>
+=======
+    <>    
+            <div className="col-12 col-md-6 col-lg-4">
+              <img src={videogame.image} className="img-fluid" alt="videogame" /> 
+            </div>
+            <div className="col-12 col-md-6 col-lg-8">
+              <h1>{videogame.title}</h1>
+              <h3>{videogame.director}</h3>
+              <p>{videogame.abstract}</p>
+            </div>
+            <div className="col-12">
+              <div className="d-flex justify-content-between">
+                <h3>Our community reviews</h3>
+              </div>
+          </div>
+    </>
+>>>>>>> frontend-detail_page
   )
 }
 
