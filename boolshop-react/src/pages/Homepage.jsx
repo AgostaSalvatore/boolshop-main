@@ -28,9 +28,9 @@ const Homepage = () => {
                     <div id="carouselExample" className="carousel slide">
                         <div className="carousel-inner">
                             {games?.map((game, index) => {
-                                return <div key={`videogame ${game.id}`} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
-                                    <img src={game.image
-                                    } className="d-block w-100" alt="" />
+                                return < div key={`videogame ${game.id}`} className={`carousel-item ${index === 0 ? 'active' : ''}`}
+                                >
+                                    <img src={`http://127.0.0.1:3000/imgs/videogame_imgs/${game.image}`} className="d-block w-100" alt="" />
                                 </div>
                             })}
                         </div>
@@ -45,7 +45,7 @@ const Homepage = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 

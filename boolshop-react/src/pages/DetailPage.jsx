@@ -21,7 +21,7 @@ const DetailPage = () => {
 
   useEffect(() => {
     fetchVideogame();
-  },[id]);
+  }, [id]);
 
   if (!videogame) {
     return <div>Caricamento...</div>;
@@ -33,24 +33,24 @@ const DetailPage = () => {
       <div className="container">
         <div className="row">
           <div className="col-8">
-            <ProductGallery images={videogame?.image} productName={videogame?.title}/>
+            <ProductGallery images={videogame?.image} productName={videogame?.title} />
           </div>
           <div className="col-4">{/*da risolvere il genere genre={genre.name}*/}
-            <ProductInfo title={videogame?.title} price={videogame?.price} release_year={videogame?.release_year} software_house={videogame?.software_house} discount={videogame?.discount}/>
+            <ProductInfo title={videogame?.title} price={videogame?.price} release_year={videogame?.release_year} software_house={videogame?.software_house} discount={videogame?.discount} />
           </div>
         </div>
         <div className="row">
           <div className="col-8">
-            <ProductDescription description={videogame?.description}/>
+            <ProductDescription description={videogame?.description} />
           </div>
         </div>
         <div className="row bg-danger">
           <div className="col-12">
-            <Footer/>
+            <Footer />
           </div>
         </div>
       </div>
-      
+
 
     </div>
   )
