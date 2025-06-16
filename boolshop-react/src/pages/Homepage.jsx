@@ -23,6 +23,7 @@ const Homepage = () => {
     return (
         <div className="container">
             <h1>Homepage</h1>
+            <h2>Section</h2>
             <div className="row">
                 <div className="col-12">
                     <div id="carouselExample" className="carousel slide">
