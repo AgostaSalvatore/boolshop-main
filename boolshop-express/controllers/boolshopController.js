@@ -33,7 +33,11 @@ const show = (req, res) => {
 const orderByPriceDesc = (req, res) => {
     connection.query('SELECT * FROM videogame ORDER BY price DESC', (err, result) => {
         if (err) return res.status(500).json({ error: "Database Query Failed:" + err });
-        res.json(result);
+        const games = result.map(game => ({
+            ...game,
+            image: req.imagePath + game.image
+        }))
+        res.json(games);
     })
 }
 
@@ -41,7 +45,11 @@ const orderByPriceDesc = (req, res) => {
 const orderByPriceAsc = (req, res) => {
     connection.query('SELECT * FROM videogame ORDER BY price ASC', (err, result) => {
         if (err) return res.status(500).json({ error: "Database Query Failed:" + err });
-        res.json(result);
+        const games = result.map(game => ({
+            ...game,
+            image: req.imagePath + game.image
+        }))
+        res.json(games);
     })
 }
 
