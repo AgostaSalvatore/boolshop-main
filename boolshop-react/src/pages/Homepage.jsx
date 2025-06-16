@@ -10,6 +10,8 @@ const Homepage = () => {
     const fetchGames = (() => {
         axios.get('http://127.0.0.1:3000/api/boolShop/').then((resp) => {
             setGames(resp.data)
+            console.log(resp.data);
+
         }).catch((err) => {
             console.log(err)
         })
@@ -31,7 +33,7 @@ const Homepage = () => {
                             {games?.map((game, index) => {
                                 return < div key={`videogame ${game.id}`} className={`carousel-item ${index === 0 ? 'active' : ''}`}
                                 >
-                                    <img src={`http://127.0.0.1:3000/imgs/videogame_imgs/${game.image}`} className="d-block w-100" alt="" />
+                                    <img src={game.image} className="d-block w-100" alt="" />
                                 </div>
                             })}
                         </div>
