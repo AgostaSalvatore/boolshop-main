@@ -30,8 +30,17 @@ const orderByPriceDesc = (req, res) => {
     })
 }
 
+//  ordina per prezzo dal più basso al più alto
+const orderByPriceAsc = (req, res) => {
+    connection.query('SELECT * FROM videogame ORDER BY price ASC', (err, result) => {
+        if (err) return res.status(500).json({ error: "Database Query Failed:" + err });
+        res.json(result);
+    })
+}
+
 module.exports = {
     index,
     show,
-    orderByPriceDesc
+    orderByPriceDesc,
+    orderByPriceAsc
 }
