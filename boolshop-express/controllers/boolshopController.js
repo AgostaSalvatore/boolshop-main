@@ -2,9 +2,14 @@
 const connection = require('../data/db')
 
 const index = (req, res) => {
-    connection.query('SELECT * FROM videogame', (err, result) => {
+    connection.query('SELECT * FROM videogame', (err, gamesResult) => {
         if (err) return res.status(500).json({ error: "Database Query Failed:" + err });
-        res.json(result);
+
+        const games = gamesResult.map(game => ({
+            ...game,
+            image: req.imagePath + '/' + game.image
+        }))
+        res.json(games)
     })
 }
 
