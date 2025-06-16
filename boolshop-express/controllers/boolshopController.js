@@ -23,6 +23,8 @@ const show = (req, res) => {
         if (recordResult.length === 0) return res.status(404).json({ error: "Record not found" });
 
         const record = recordResult[0]
+
+        record.image = req.imagePath + record.image
         res.json(record)
     })
 }
