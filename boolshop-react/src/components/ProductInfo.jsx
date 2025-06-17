@@ -6,10 +6,10 @@ const ProductInfo = ({ title, genre, price, release_year, software_house, discou
         {/* Action buttons */}
         <div className="d-flex gap-2 mb-4">
           <button className="btn btn-outline-primary">
-            <i className="fas fa-heart me-2"></i>LISTA DESIDERI
+            LISTA DESIDERI
           </button>
           <button className="btn btn-outline-primary">
-            <i className="fas fa-star me-2"></i>AGGIUNGI AL CARRELLO
+            AGGIUNGI AL CARRELLO
           </button>
         </div>
 

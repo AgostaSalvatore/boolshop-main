@@ -1,7 +1,8 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import Cart from './Cart'
-import { useState } from 'react'
+import Searchbar from './Searchbar'
+// import { useState } from 'react'
 
 const Header = () => {
 
@@ -14,7 +15,7 @@ const Header = () => {
                         <img className="logo img-fluid" src="/img/boolshop-logo-3.png" alt="Logo" />
 
                         {/* Search bar al centro */}
-                        <form className="d-flex w-50" role="search">
+                        {/* <form className="d-flex w-50" role="search">
                             <input
                                 className="form-control me-2"
                                 type="search"
@@ -22,7 +23,8 @@ const Header = () => {
                                 aria-label="Search"
                             />
                             <button className="btn btn-primary" type="submit">Search</button>
-                        </form>
+                        </form> */}
+                        <Searchbar />
 
                         {/* Pulsanti sulla destra */}
                         <div className="d-flex">
