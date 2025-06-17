@@ -26,7 +26,7 @@ const Header = () => {
 
                         {/* Pulsanti sulla destra */}
                         <div className="d-flex">
-                            <NavLink to="/cart" className="btn btn-outline-primary me-2">
+                            <NavLink to="/cart" className="btn btn-outline-primary me-3">
                                 <i className="bi bi-cart me-1"></i> Carrello
                             </NavLink>
                             <button className="btn btn-outline-primary">
