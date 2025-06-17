@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import ProductGallery from "../components/ProductGallery";
 import ProductInfo from "../components/ProductInfo";
 import ProductDescription from "../components/ProductDescription";
+import RelatedProducts from "../components/RelatedProducts";
 
 
 const DetailPage = () => {
@@ -30,35 +31,33 @@ const DetailPage = () => {
 
   return (
     <div>
-      
       <div className="container">
-        <div className="row">
-          <div className="col-8 mt-4">
+        <div className="row mt-4">
+          <div className="col-8 ">
             <ProductGallery images={videogame?.image} productName={videogame?.title} />
           </div>
           <div className="col-4">
             <ProductInfo 
               title={videogame?.title} 
               genre={videogame?.genres} 
-              price={videogame?.price} 
+              price={videogame?.price}
               release_year={videogame?.release_year} 
               software_house={videogame?.software_house} 
               discount={videogame?.discount} 
             />
           </div>
         </div>
-        <div className="row">
+        <div className="row mt-4">
           <div className="col-8">
             <ProductDescription description={videogame?.description} />
           </div>
         </div>
-        <div className="row bg-danger">
+        <div className="row bg-primary mt-4">
           <div className="col-12">
+            <RelatedProducts currentProduct={videogame}/>
           </div>
         </div>
       </div>
-
-
     </div>
   )
 }

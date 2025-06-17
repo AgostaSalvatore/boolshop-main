@@ -117,3 +117,54 @@ header .form-control {
 .price {
   color: #0d6efd;
 }
+
+.related-products {
+  margin-top: 2rem;
+  padding: 1rem;
+}
+
+.related-products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.related-product-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.related-product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-image img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.product-title {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.product-price {
+  font-weight: bold;
+  color: #007bff;
+  margin: 0.25rem 0;
+}
+
+.loading,
+.error,
+.no-products {
+  text-align: center;
+  padding: 1rem;
+  color: #666;
+}
