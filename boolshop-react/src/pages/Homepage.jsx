@@ -53,7 +53,7 @@ const Homepage = () => {
 
                                     {/* Informazioni sul gioco */}
                                     <div className="mt-3 mb-4 text-center">
-                                        <div className="bg-danger text-white p-3 mx-auto" style={{ maxWidth: '80%' }}>
+                                        <div className="bg-danger text-white p-3 mx-auto" style={{ maxWidth: '80%' }} >
                                             <p className="mt-2">{game.description}</p>
                                         </div>
                                     </div>
@@ -76,6 +76,9 @@ const Homepage = () => {
                         </button>
                     </div>
                 </div>
+            </div>
+            <div className='row mt-4'>
+                <DiscountedGamesRow games={discountedGames} />
             </div>
         </div >
     )
