@@ -19,9 +19,10 @@ const Homepage = () => {
     const fetchGames = () => {
         axios.get('http://127.0.0.1:3000/api/boolShop/')
             .then((resp) => {
-                setGames(resp.data);
+                setGames(resp.data); // Salva tutti i giochi nello stato `games`
                 const discountedGames = resp.data.filter(game => game.discount > 0); // Filtra i giochi in sconto
-                setDiscountedGames(shuffleArray(discountedGames)); // Mescola casualmente i giochi
+                const shuffledGames = shuffleArray(discountedGames); // Mescola i giochi in sconto
+                setDiscountedGames(shuffledGames.slice(0, 5)); // Seleziona solo i primi 5 giochi randomici
             })
             .catch((err) => {
                 console.log(err);
