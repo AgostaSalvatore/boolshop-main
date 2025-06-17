@@ -1,28 +1,34 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 
 const Cart = () => {
   return (
-    <div>
-      <div className="container my-3">
-        <h2>Il tuo carrello</h2>
-        <div className="row">
-          <div className="col d-flex">
-            <h4>Il carrelo è vuoto</h4>
-            <p> <a href="/" className='text-decoration-none'>Vai alla Homepage per trovare i prodotti che desideri</a></p>
-          </div>
+    <div className="container py-5">
+      <div className="row d-flex justify-content-between">
+        <div className="col-12 col-md-9 mb-4">
+          <h1 className="text-primary fw-bold mb-3">Il tuo carrello è vuoto</h1>
+          <p className="fs-5">
+            Vai alla&nbsp;
+            <a href="/" className="text-reset text-decoration-none">Homepage</a>
+            &nbsp;per trovare i prodotti che desideri.
+          </p>
         </div>
-        <div className="col">
-          <h5>Riepilogo ordine</h5>
-          <div className="d-flex justify-content-between">
+        <div className="col-12 col-md-3">
+          <h2 className="text-success fw-bold mb-3">Riepilogo Ordine</h2>
+          <div className="d-flex justify-content-between gap-5 mb-2">
             <span>Prodotti</span>
             <span>€ 0,00</span>
-            <hr />
-            <div className="d-flex justify-content-between">
-              <span>Totale</span>
-              <span>0</span>
-            </div>
-            <hr />
+          </div>
+          <div className="d-flex justify-content-between gap-5 mb-2">
+            <span>Subtotale</span>
+            <span>€ 0,00</span>
+          </div>
+          <div className="d-flex justify-content-between gap-5 mb-2">
+            <span>Spedizione gratuita</span>
+            <span>Sì/No</span>
+          </div>
+          <div className="d-flex justify-content-between gap-5 mb-2">
+            <span>Totale</span>
+            <span>0</span>
           </div>
         </div>
       </div>
