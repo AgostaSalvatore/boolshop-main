@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import DiscountedGamesRow from '../components/DiscountedGamesRow';
 
 
 
@@ -7,45 +8,60 @@ const Homepage = () => {
 
 
     const [games, setGames] = useState([]);
-    const fetchGames = (() => {
-        axios.get('http://127.0.0.1:3000/api/boolShop/').then((resp) => {
-            setGames(resp.data)
-            console.log(resp.data);
+    const [discountedGames, setDiscountedGames] = useState([]);
 
-        }).catch((err) => {
-            console.log(err)
-        })
-    })
+    // Funzione per mescolare casualmente un array
+    const shuffleArray = (array) => {
+        return array.sort(() => Math.random() - 0.5);
+    };
+
+    // Funzione per recuperare i giochi dall'API
+    const fetchGames = () => {
+        axios.get('http://127.0.0.1:3000/api/boolShop/')
+            .then((resp) => {
+                setGames(resp.data);
+                const discountedGames = resp.data.filter(game => game.discount > 0); // Filtra i giochi in sconto
+                setDiscountedGames(shuffleArray(discountedGames)); // Mescola casualmente i giochi
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 
     useEffect(() => {
         fetchGames()
     }, []);
 
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col-12">
-                    <div id="carouselExample" className="carousel slide custom-carousel">
-                        <div className="carousel-inner">
-                            {console.log(games.map(game => game.image))} {/* Verifica i percorsi delle immagini */}
-                            {games.map((game, index) => (
-                                <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
-                                    <img src={game.image} className="d-block w-100" alt={game.name || 'Game image'} />
-                                </div>
-                            ))}
+        <>
+            <div className="container">
+                <div className="row">
+                    <div className="col-12">
+                        <div id="carouselExample" className="carousel slide custom-carousel">
+                            <div className="carousel-inner">
+                                {console.log(games.map(game => game.image))} {/* Verifica i percorsi delle immagini */}
+                                {games.map((game, index) => (
+                                    <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
+                                        <img src={game.image} className="d-block w-100" alt={game.name || 'Game image'} />
+                                    </div>
+                                ))}
+                            </div>
+                            <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span className="visually-hidden">Previous</span>
+                            </button>
+                            <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                                <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span className="visually-hidden">Next</span>
+                            </button>
                         </div>
-                        <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-                            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span className="visually-hidden">Previous</span>
-                        </button>
-                        <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                            <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span className="visually-hidden">Next</span>
-                        </button>
                     </div>
                 </div>
-            </div>
-        </div >
+                <div className='row mt-4'>
+                    <DiscountedGamesRow games={discountedGames} />
+                </div>
+            </div >
+        </>
     )
 }
 
