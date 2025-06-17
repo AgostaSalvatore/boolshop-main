@@ -12,7 +12,9 @@ const Header = () => {
                 <div className="container">
                     <div className="d-flex align-items-center justify-content-between">
                         {/* Logo sulla sinistra */}
-                        <img className="logo img-fluid" src="/img/boolshop-logo-3.png" alt="Logo" />
+                        <NavLink to="/">
+                            <img className="logo img-fluid" src="/img/boolshop-logo-3.png" alt="Logo" />
+                        </NavLink>
 
                         {/* Search bar al centro */}
                         {/* <form className="d-flex w-50" role="search">
