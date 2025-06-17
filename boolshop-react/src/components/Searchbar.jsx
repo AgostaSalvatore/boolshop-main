@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Searchbar = () => {
   const [searchText, setSearchText] = useState('');
   const [results, setResults] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (searchText.length > 0) {
@@ -28,6 +30,15 @@ const Searchbar = () => {
     setSearchText(e.target.value);
   };
 
+  const handleItemClick = (videogameId) => {
+    // Naviga alla pagina di dettaglio passando l'ID del videogame
+    navigate(`/${videogameId}`);
+    
+    // Opzionale: pulisci la searchbar dopo il click
+    setSearchText('');
+    setResults([]);
+  };
+
   return (
     <div className="searchbar-wrapper">
       <input
@@ -41,7 +52,12 @@ const Searchbar = () => {
       {results.length > 0 && (
         <div className="searchbar-dropdown">
           {results.map((videogame) => (
-            <div key={videogame.id} className="searchbar-item">
+            <div 
+              key={videogame.id} 
+              className="searchbar-item"
+              onClick={() => handleItemClick(videogame.id)}
+              style={{ cursor: 'pointer' }}
+            >
               <strong>{videogame.title}</strong>
               <span className="price">€{Number(videogame.price).toFixed(2)}</span>
             </div>
