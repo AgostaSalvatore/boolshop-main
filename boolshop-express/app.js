@@ -13,7 +13,13 @@ const cors = require('cors') //cors
 app.use(express.static("public")); //static files
 app.use(express.json()); //json
 app.use(setImagePath); //set image path
-app.use(cors({ origin: process.env.FA_APP }));
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "http://localhost:5173"); // Origine del frontend
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE"); // Metodi consentiti
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization"); // Header consentiti
+    res.header("Access-Control-Allow-Credentials", "true"); // Consenti credenziali
+    next();
+});
 
 //base route
 app.get("/", (req, res) => {

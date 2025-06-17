@@ -7,7 +7,7 @@ const index = (req, res) => {
 
         const games = gamesResult.map(game => ({
             ...game,
-            image: req.imagePath + game.image
+            image: `${req.imagePath}/${game.image}`
         }))
         res.json(games)
     })
@@ -24,7 +24,7 @@ const show = (req, res) => {
 
         const record = recordResult[0]
 
-        record.image = req.imagePath + record.image
+        record.image = `${req.imagePath}/${record.image}`
         res.json(record)
     })
 }
@@ -35,7 +35,7 @@ const orderByPriceDesc = (req, res) => {
         if (err) return res.status(500).json({ error: "Database Query Failed:" + err });
         const games = result.map(game => ({
             ...game,
-            image: req.imagePath + game.image
+            image: `${req.imagePath}/${game.image}`
         }))
         res.json(games);
     })
@@ -47,7 +47,7 @@ const orderByPriceAsc = (req, res) => {
         if (err) return res.status(500).json({ error: "Database Query Failed:" + err });
         const games = result.map(game => ({
             ...game,
-            image: req.imagePath + game.image
+            image: `${req.imagePath}/${game.image}`
         }))
         res.json(games);
     })
