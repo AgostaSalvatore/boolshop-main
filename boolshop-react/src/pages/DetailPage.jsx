@@ -35,8 +35,15 @@ const DetailPage = () => {
           <div className="col-8">
             <ProductGallery images={videogame?.image} productName={videogame?.title} />
           </div>
-          <div className="col-4">{/*da risolvere il genere genre={genre.name}*/}
-            <ProductInfo title={videogame?.title} price={videogame?.price} release_year={videogame?.release_year} software_house={videogame?.software_house} discount={videogame?.discount} />
+          <div className="col-4">
+            <ProductInfo 
+              title={videogame?.title} 
+              genre={videogame?.genres} 
+              price={videogame?.price} 
+              release_year={videogame?.release_year} 
+              software_house={videogame?.software_house} 
+              discount={videogame?.discount} 
+            />
           </div>
         </div>
         <div className="row">
