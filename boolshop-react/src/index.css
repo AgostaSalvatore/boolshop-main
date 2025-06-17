@@ -54,6 +54,12 @@ header .form-control {
   object-fit: cover;
 }
 
+.carousel-game-image {
+  object-fit: contain !important;
+  object-position: center !important;
+  height: 450px !important;
+}
+
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
   filter: invert(0%) brightness(0%);
