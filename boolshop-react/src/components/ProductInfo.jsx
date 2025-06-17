@@ -19,7 +19,7 @@ const ProductInfo = ({ title, genre, price, release_year, software_house, discou
             <strong>Nome:</strong> {title}
           </div>
           <div className="col-sm-6">
-            <strong>Genere:</strong> {genre}
+            <strong>Genere:</strong> {Array.isArray(genre) ? genre.join(', ') : 'N/A'}
           </div>
           <div className="col-sm-6">
             <strong>Prezzo:</strong> {price}
