@@ -25,6 +25,11 @@ const Cart = () => {
             <hr />
           </div>
         </div>
+        <div className="row">
+          <div className="col-12">
+            <NavLink to={"/checkout"}> <button type="button" className="btn checkout-button btn-primary">Vai al pagamento</button></NavLink>
+          </div>
+        </div>
       </div>
     </div>
   )
