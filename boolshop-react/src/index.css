@@ -25,7 +25,6 @@ header .btn {
   border: 2px solid rgb(16, 98, 167);
   color: white;
   background-color: rgb(16, 98, 167);
-
 }
 
 header .btn:hover {
@@ -54,7 +53,55 @@ header .form-control {
   object-fit: cover;
 }
 
+.carousel-game-image {
+  object-fit: contain !important;
+  object-position: center !important;
+  height: 450px !important;
+}
+
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
   filter: invert(0%) brightness(0%);
+}
+
+.searchbar-wrapper {
+  position: relative;
+  width: 50%;
+}
+
+.searchbar-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.searchbar-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 4px;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.searchbar-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.searchbar-item:hover {
+  background-color: #f8f9fa;
+}
+
+.price {
+  color: #0d6efd;
 }

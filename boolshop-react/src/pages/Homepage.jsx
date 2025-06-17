@@ -30,15 +30,35 @@ const Homepage = () => {
                             {console.log(games.map(game => game.image))} {/* Verifica i percorsi delle immagini */}
                             {games.map((game, index) => (
                                 <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
-                                    <img src={game.image} className="d-block w-100" alt={game.name || 'Game image'} />
+                                    {/* Immagine del gioco */}
+                                    <div className="text-center">
+                                        <img
+                                            src={game.image}
+                                            className="d-block mx-auto carousel-game-image"
+                                            alt={game.name || 'Game image'}
+                                        />
+                                    </div>
+
+                                    {/* Informazioni sul gioco */}
+                                    <div className="mt-3 mb-4 text-center">
+                                        <div className="bg-danger text-white p-3 mx-auto" style={{ maxWidth: '80%' }}>
+                                            <p className="mt-2">{game.description}</p>
+                                        </div>
+                                    </div>
                                 </div>
                             ))}
                         </div>
-                        <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                        <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev" style={{
+                            width: '5%',
+                            zIndex: 5
+                        }}>
                             <span className="carousel-control-prev-icon" aria-hidden="true"></span>
                             <span className="visually-hidden">Previous</span>
                         </button>
-                        <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                        <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next" style={{
+                            width: '5%',
+                            zIndex: 5
+                        }}>
                             <span className="carousel-control-next-icon" aria-hidden="true"></span>
                             <span className="visually-hidden">Next</span>
                         </button>
