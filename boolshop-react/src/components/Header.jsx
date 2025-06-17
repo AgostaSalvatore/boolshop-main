@@ -1,7 +1,10 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import Cart from './Cart'
+import { useState } from 'react'
 
 const Header = () => {
+
     return (
         <>
             <header>
@@ -23,16 +26,16 @@ const Header = () => {
 
                         {/* Pulsanti sulla destra */}
                         <div className="d-flex">
-                            <button className="btn btn-outline-primary me-2">
-                                <i className="bi bi-cart"></i> {/* Icona carrello */}
-                            </button>
+                            <NavLink to="/cart" className="btn btn-outline-primary me-2">
+                                <i className="bi bi-cart me-1"></i> Carrello
+                            </NavLink>
                             <button className="btn btn-outline-primary">
-                                <i className="bi bi-heart"></i> {/* Icona wishlist */}
+                                <i className="bi bi-heart">Wishlist</i> {/* Icona wishlist */}
                             </button>
                         </div>
                     </div>
                 </div>
-            </header>
+            </header >
         </>
     )
 }
