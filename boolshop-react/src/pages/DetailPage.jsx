@@ -26,24 +26,25 @@ const DetailPage = () => {
     return <div>Caricamento...</div>;
   }
 
-  
+
 
   return (
     <div>
-      
+
       <div className="container">
         <div className="row">
           <div className="col-8 mt-4">
             <ProductGallery images={videogame?.image} productName={videogame?.title} />
           </div>
           <div className="col-4">
-            <ProductInfo 
-              title={videogame?.title} 
-              genre={videogame?.genres} 
-              price={videogame?.price} 
-              release_year={videogame?.release_year} 
-              software_house={videogame?.software_house} 
-              discount={videogame?.discount} 
+            <ProductInfo
+              title={videogame?.title}
+              genre={videogame?.genres}
+              price={videogame?.price}
+              release_year={videogame?.release_year}
+              software_house={videogame?.software_house}
+              discount={videogame?.discount}
+              product={videogame}
             />
           </div>
         </div>
