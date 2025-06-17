@@ -7,13 +7,21 @@
 /* HEADER */
 header {
   background-color: rgb(123, 176, 219);
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
 }
 
 .logo {
-  width: 160px;
+  width: 120px;
+  height: auto;
 }
 
 header .btn {
+  height: 40px;
+  font-size: 16px;
   border: 2px solid rgb(16, 98, 167);
   color: white;
   background-color: rgb(16, 98, 167);
@@ -27,4 +35,26 @@ header .btn:hover {
 
 header .form-control {
   width: 300px;
+  height: 40px;
+  font-size: 16px;
+}
+
+/* HOMEPAGE */
+
+.custom-carousel {
+  margin: 20px 0;
+  border-radius: 15px;
+  height: 600px;
+  overflow: hidden;
+}
+
+.custom-carousel img {
+  height: 100%;
+  width: auto;
+  object-fit: cover;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(0%) brightness(0%);
 }

@@ -23,11 +23,9 @@ const Homepage = () => {
 
     return (
         <div className="container">
-            <h1>Homepage</h1>
-            <h2>Section</h2>
             <div className="row">
                 <div className="col-12">
-                    <div id="carouselExample" className="carousel slide">
+                    <div id="carouselExample" className="carousel slide custom-carousel">
                         <div className="carousel-inner">
                             {console.log(games.map(game => game.image))} {/* Verifica i percorsi delle immagini */}
                             {games.map((game, index) => (
