@@ -1,21 +1,39 @@
 import React from 'react'
 import { useCart } from '../context/CartContext'
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 // Componente che mostra le informazioni principali del prodotto e i pulsanti azione
 const ProductInfo = ({ title, genre, price, release_year, software_house, discount, product }) => {
-  const navigate = useNavigate();
   // Recupera la funzione per aggiungere al carrello dal context
   const { addToCart } = useCart();
+  const [showPopup, setShowPopup] = useState(false) //Uso la variabile di stato per mostrare un popup tot secondi dopo click
 
   // Gestore per il click su "Aggiungi al carrello"
   const handleAddToCart = () => {
     addToCart(product) // Aggiunge il prodotto al carrello
-    navigate("/cart"); // Reindirizza alla pagina carrello
+    setShowPopup(true) //Attiva il metodo
+
+    setTimeout(() => setShowPopup(false), 2000);  // dopo 2 secondi nasconde il popup
   };
 
   return (
     <>
+      {showPopup && (
+        <div className="position-fixed top-0 end-0 p-3" style={{ zIndex: 1050 }}>
+          <div className="toast show align-items-center text-white bg-success border-0">
+            <div className="d-flex">
+              <div className="toast-body">
+                ✅ Articolo aggiunto al carrello!
+              </div>
+              <button
+                type="button"
+                className="btn-close btn-close-white me-2 m-auto"
+                onClick={() => setShowPopup(false)}
+              ></button>
+            </div>
+          </div>
+        </div>
+      )}
       {/* Pulsanti di azione: lista desideri e aggiungi al carrello */}
       <div className="d-flex gap-2 mb-4">
         <button className="btn btn-outline-primary">
