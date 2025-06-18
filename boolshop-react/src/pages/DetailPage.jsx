@@ -43,13 +43,13 @@ const DetailPage = () => {
           </div>
           {/* Informazioni prodotto */}
           <div className="col-4">
-            <ProductInfo 
-              title={videogame?.title} 
-              genre={videogame?.genres} 
+            <ProductInfo
+              title={videogame?.title}
+              genre={videogame?.genres}
               price={videogame?.price}
-              release_year={videogame?.release_year} 
-              software_house={videogame?.software_house} 
-              discount={videogame?.discount} 
+              release_year={videogame?.release_year}
+              software_house={videogame?.software_house}
+              discount={videogame?.discount}
               product={videogame}
             />
           </div>
@@ -62,7 +62,7 @@ const DetailPage = () => {
         {/* Sezione che mostra i prodotti correlati */}
         <div className="row bg-primary mt-4">
           <div className="col-12">
-            <RelatedProducts currentProduct={videogame}/>
+            <RelatedProducts currentProduct={videogame} />
           </div>
         </div>
       </div>
