@@ -16,13 +16,11 @@ const Searchbar = () => {
     // Se c'è testo, effettua la chiamata API e filtra i risultati
     if (searchText.length > 0) {
       axios
-        .get('http://127.0.0.1:3000/api/boolshop/')
+        .get('http://127.0.0.1:3000/api/boolshop/', {
+          params: { search: searchText }
+        })
         .then((res) => {
-          // Filtra i videogiochi in base al testo inserito (non case sensitive)
-          const filtered = res.data.filter((videogame) =>
-            videogame.title.toLowerCase().includes(searchText.toLowerCase())
-          );
-          setResults(filtered); // Aggiorna i risultati
+          setResults(res.data); // Aggiorna i risultati
         })
         .catch((err) => {
           // In caso di errore, logga e svuota i risultati
@@ -65,8 +63,8 @@ const Searchbar = () => {
         <div className="searchbar-dropdown">
           {/* Filtra ogni risultato in un elemento cliccabile */}
           {results.map((videogame) => (
-            <div 
-              key={videogame.id} 
+            <div
+              key={videogame.id}
               className="searchbar-item"
               onClick={() => handleItemClick(videogame.id)}
               style={{ cursor: 'pointer' }}
