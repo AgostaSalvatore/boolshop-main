@@ -19,6 +19,13 @@ const Header = () => {
                         {/* Search bar al centro */}
                         <Searchbar />
 
+                        {/* Pulsante Catalogo Giochi */}
+                        <NavLink to="/catalogo-giochi">
+                            <button className="btn btn-outline-primary me-3">
+                                <i className="bi bi-book">Catalogo Giochi</i>
+                            </button>
+                        </NavLink>
+
                         {/* Pulsanti sulla destra */}
                         <div className="d-flex">
                             <button className="btn btn-outline-primary me-3">
