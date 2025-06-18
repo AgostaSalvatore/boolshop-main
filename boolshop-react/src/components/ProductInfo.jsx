@@ -1,18 +1,19 @@
 import React from 'react'
 import { useCart } from '../context/CartContext'
+import { useNavigate } from 'react-router-dom';
 
 // Componente che mostra le informazioni principali del prodotto e i pulsanti azione
 const ProductInfo = ({ title, genre, price, release_year, software_house, discount, product }) => {
-
+  const navigate = useNavigate();
   // Recupera la funzione per aggiungere al carrello dal context
   const { addToCart } = useCart();
 
   // Gestore per il click su "Aggiungi al carrello"
   const handleAddToCart = () => {
     addToCart(product) // Aggiunge il prodotto al carrello
-    window.location.href = "/cart"; // Reindirizza alla pagina carrello
+    navigate("/cart"); // Reindirizza alla pagina carrello
   };
-  
+
   return (
     <>
       {/* Pulsanti di azione: lista desideri e aggiungi al carrello */}
