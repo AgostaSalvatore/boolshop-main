@@ -11,10 +11,13 @@ export const CartProvider = ({ children }) => {   //creo il provider
     const addToCart = (product) => {
         setCartItems(prev => [...prev, product]);
     };
-
+    const removeFromCart = (id) => {
+        setCartItems(prev => prev.filter(item => item.id !== id));
+    };
     const value = {
         cartItems,
-        addToCart
+        addToCart,
+        removeFromCart
     };
 
     return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
