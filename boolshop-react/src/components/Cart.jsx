@@ -7,6 +7,11 @@ const Cart = () => {
   // Recupera gli articoli presenti nel carrello dal context //  Inoltre possibilità di rimuovere gli articoli presenti nel carrello
   const { cartItems, removeFromCart } = useCart();
 
+  const productsTotal = cartItems.reduce((sum, item) => sum + parseFloat(item.price || 0), 0); // itera l'array e restituisce il costo finale
+  const hasFreeShipping = productsTotal >= 60; // spedizione gratis sopra i 60€
+  const shippingCost = hasFreeShipping ? 0 : 4.99; // per i costi di spedizione, 4.99€ di spedizione al di sotto di 60€
+  const finalTotal = productsTotal + shippingCost; // costo finale
+
   return (
     <div className="container py-5">
       <div className="row d-flex justify-content-between">
@@ -62,21 +67,19 @@ const Cart = () => {
           <h2 className="text-success fw-bold mb-3">Riepilogo Ordine</h2>
           <div className="d-flex justify-content-between gap-5 mb-2">
             <span>Prodotti</span>
-            <span>€ 0,00</span>
+            <span>{productsTotal.toFixed(2)} €</span>
           </div>
           <div className="d-flex justify-content-between gap-5 mb-2">
-            <span>Subtotale</span>
-            <span>€ 0,00</span>
+            <span>Costo di spedizione</span>
+            <span>{hasFreeShipping ? "Gratuita" : "4,99 €"}</span>
           </div>
-          <div className="d-flex justify-content-between gap-5 mb-2">
-            <span>Spedizione gratuita</span>
-            <span>Sì/No</span>
-          </div>
-          <div className="d-flex justify-content-between gap-5 mb-2">
+          <hr />
+          <div className="d-flex justify-content-between gap-5 fw-bold mb-2">
             <span>Totale</span>
-            <span>0</span>
+            <span>{finalTotal.toFixed(2)} € </span>
           </div>
         </div>
+
         {/* Riga separata per il pulsante di checkout */}
         <div className="row">
           <div className="col-12">
