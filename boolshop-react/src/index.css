@@ -6,7 +6,7 @@
 
 /* HEADER */
 header {
-  background-color: rgb(123, 176, 219);
+  background-color: #1E1E1E;
   height: 90px;
   display: flex;
   align-items: center;
@@ -22,13 +22,13 @@ header {
 header .btn {
   height: 40px;
   font-size: 16px;
-  border: 2px solid rgb(16, 98, 167);
+  border: 2px solid #E24C24;
   color: white;
-  background-color: rgb(16, 98, 167);
+  background-color: #E24C24;
 }
 
 header .btn:hover {
-  background-color: rgb(16, 98, 167);
+  background-color: #E24C24;
   color: white;
 }
 
@@ -171,13 +171,13 @@ header .form-control {
 
 /* CART */
 .checkout-button {
-  border: 2px solid rgb(16, 98, 167) !important;
-  background-color: rgb(16, 98, 167) !important;
+  border: 2px solid #E24C24 !important;
+  background-color: #E24C24 !important;
 }
 
 /* FOOTER */
 footer {
-  background-color: rgb(123, 176, 219);
+  background-color: #1E1E1E;
 }
 
 /* CHECK-OUT */
@@ -192,4 +192,10 @@ footer {
 
 .chekout-form h4 {
   text-align: center;
+}
+
+
+
+main {
+  background-color: #FCA22D;
 }
