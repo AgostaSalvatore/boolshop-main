@@ -3,8 +3,29 @@ const connection = require('../data/db')
 
 // Funzione per ottenere tutti i videogiochi
 const index = (req, res) => {
+    const search = req.query.search;
+    console.log('Parametro search:', search);
+    let sql = `
+    SELECT videogame.*, GROUP_CONCAT(genre.name SEPARATOR ', ') AS genres
+    FROM videogame
+    JOIN videogame_genre ON videogame.id = videogame_genre.videogame_id
+    JOIN genre ON videogame_genre.genre_id = genre.id`;
+    let params = [];
+
+    if (search) {
+        const searchTerm = `%${search}%`;
+        sql += `
+      WHERE videogame.title LIKE ?
+      OR videogame.description LIKE ?
+      OR videogame.software_house LIKE ?
+      OR genre.name LIKE ?
+    `;
+        params.push(searchTerm, searchTerm, searchTerm, searchTerm);
+    }
+
+    sql += ' GROUP BY videogame.id';
     // Eseguiamo la query per selezionare tutti i videogiochi
-    connection.query('SELECT * FROM videogame', (err, gamesResult) => {
+    connection.query(sql, params, (err, gamesResult) => {
         // In caso di errore, restituiamo un errore 500
         if (err) return res.status(500).json({ error: "Database Query Failed:" + err });
 
