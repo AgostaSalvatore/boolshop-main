@@ -1,8 +1,12 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
 import { useCart } from '../context/CartContext'
+
+// Componente che mostra il carrello dell'utente
 const Cart = () => {
+  // Recupera gli articoli presenti nel carrello dal context
   const { cartItems } = useCart();
+
   return (
     <div className="container py-5">
       <div className="row d-flex justify-content-between">
@@ -10,14 +14,16 @@ const Cart = () => {
           <h1 className="text-primary fw-bold mb-3">Il tuo carrello</h1>
           {cartItems.length === 0 ? (
             <p>Il carrello è vuoto.
-              Vai alla&nbsp;
-              <a href="/" className="text-decoration-none fw-bold" style={{ color: "black" }}>Homepage</a>
-              &nbsp;per trovare i prodotti che desideri.
+              Vai alla
+              <a href="/" className="text-decoration-none fw-bold" style={{ color: "black" }}> Homepage </a>
+              per trovare i prodotti che desideri.
             </p>
           ) : (
             <ul className="list-unstyled">
+              {/* Filtra ogni prodotto in un elemento della lista */}
               {cartItems.map((item, index) => (
                 <li key={index} className="d-flex align-items-center gap-4 mb-4 border-bottom pb-3">
+                  {/* Immagine del prodotto */}
                   <img
                     src={item.image}
                     alt={item.title}
@@ -28,6 +34,7 @@ const Cart = () => {
                       borderRadius: '12px'
                     }}
                   />
+                  {/* Dettagli del prodotto: titolo e prezzo */}
                   <div>
                     <h5 className="mb-1">{item.title}</h5>
                     <p className="mb-0 text-muted">{item.price}€</p>
@@ -56,9 +63,15 @@ const Cart = () => {
             <span>0</span>
           </div>
         </div>
+        {/* Riga separata per il pulsante di checkout */}
         <div className="row">
           <div className="col-12">
-            <NavLink to={"/checkout"}> <button type="button" className="btn checkout-button btn-primary">Vai al pagamento</button></NavLink>
+            {/* Pulsante per andare al pagamento */}
+            <NavLink to={"/checkout"}>
+              <button type="button" className="btn checkout-button btn-primary">
+                Vai al pagamento
+              </button>
+            </NavLink>
           </div>
         </div>
       </div>

@@ -60,6 +60,7 @@ const Homepage = () => {
                                 </div>
                             ))}
                         </div>
+                        
                         <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev" style={{
                             width: '5%',
                             zIndex: 5
@@ -76,6 +77,9 @@ const Homepage = () => {
                         </button>
                     </div>
                 </div>
+            </div>
+            <div className="row">
+                <h2 className='m-2'>Giochi in offerta:</h2>
             </div>
             <div className='row mt-4'>
                 <DiscountedGamesRow games={discountedGames} />
