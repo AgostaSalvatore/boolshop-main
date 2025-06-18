@@ -4,8 +4,8 @@ import { useCart } from '../context/CartContext'
 
 // Componente che mostra il carrello dell'utente
 const Cart = () => {
-  // Recupera gli articoli presenti nel carrello dal context
-  const { cartItems } = useCart();
+  // Recupera gli articoli presenti nel carrello dal context //  Inoltre possibilità di rimuovere gli articoli presenti nel carrello
+  const { cartItems, removeFromCart } = useCart();
 
   return (
     <div className="container py-5">
@@ -38,6 +38,20 @@ const Cart = () => {
                   <div>
                     <h5 className="mb-1">{item.title}</h5>
                     <p className="mb-0 text-muted">{item.price}€</p>
+                  </div>
+                  <div className="ms-auto d-flex align-items-center gap-2">
+                    {/* Pulsante Wishlist */}
+                    <button className="btn btn-outline-secondary">
+                      <i className="bi bi-heart"></i>
+                    </button>
+
+                    {/* Pulsante Rimuovi dal carrello */}
+                    <button
+                      className="btn btn-outline-danger"
+                      onClick={() => removeFromCart(item.id)}
+                    >
+                      <i className="bi bi-trash"></i>
+                    </button>
                   </div>
                 </li>
               ))}
