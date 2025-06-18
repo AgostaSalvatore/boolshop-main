@@ -17,21 +17,12 @@ const Header = () => {
                         </NavLink>
 
                         {/* Search bar al centro */}
-                        {/* <form className="d-flex w-50" role="search">
-                            <input
-                                className="form-control me-2"
-                                type="search"
-                                placeholder="Search..."
-                                aria-label="Search"
-                            />
-                            <button className="btn btn-primary" type="submit">Search</button>
-                        </form> */}
                         <Searchbar />
 
                         {/* Pulsanti sulla destra */}
                         <div className="d-flex">
                             <button className="btn btn-outline-primary me-3">
-                                <i className="bi bi-heart">Wishlist</i> {/* Icona wishlist */}
+                                <i className="bi bi-heart">Wishlist</i>
                             </button>
                             <NavLink to="/cart" className="btn btn-outline-primary">
                                 <i className="bi bi-cart me-1"></i> Carrello
