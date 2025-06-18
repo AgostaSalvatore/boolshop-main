@@ -27,15 +27,28 @@ header .btn {
   background-color: #E24C24;
 }
 
+
 header .btn:hover {
   background-color: #E24C24;
   color: white;
 }
 
+
 header .form-control {
   width: 300px;
   height: 40px;
   font-size: 16px;
+}
+
+header .btn-outline-primary {
+  border: none;
+}
+
+header .btn-outline-primary:focus,
+header .btn-outline-primary:active,
+header .btn-outline-primary:focus-visible {
+  outline: none;
+  box-shadow: none;
 }
 
 /* HOMEPAGE */

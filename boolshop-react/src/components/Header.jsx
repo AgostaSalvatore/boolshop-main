@@ -22,11 +22,11 @@ const Header = () => {
                         {/* Pulsanti sulla destra */}
                         <div className="d-flex">
                             <button className="btn btn-outline-primary me-3">
-                                <i className="bi bi-heart">Wishlist</i>
+                                <i className="bi bi-heart me-2"></i>Wishlist
                             </button>
                             <NavLink to="/cart">
                                 <button className="btn btn-outline-primary me-3">
-                                    <i className="bi bi-cart me-1">Carrello</i>
+                                    <i className="bi bi-cart me-2"></i>Carrello
                                 </button>
                             </NavLink>
                         </div>
