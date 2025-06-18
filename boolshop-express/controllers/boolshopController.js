@@ -1,45 +1,60 @@
-// Qui va la connessione al db
+// Importiamo la connessione al database
 const connection = require('../data/db')
 
+// Funzione per ottenere tutti i videogiochi
 const index = (req, res) => {
+    // Eseguiamo la query per selezionare tutti i videogiochi
     connection.query('SELECT * FROM videogame', (err, gamesResult) => {
+        // In caso di errore, restituiamo un errore 500
         if (err) return res.status(500).json({ error: "Database Query Failed:" + err });
 
+        // Aggiungiamo il percorso completo dell'immagine a ogni gioco
         const games = gamesResult.map(game => ({
             ...game,
             image: `${req.imagePath}/${game.image}`
         }))
+        // Inviamo i giochi come risposta JSON
         res.json(games)
     })
 }
 
-//ordina per prezzo dal più alto al più basso
+// Funzione per ordinare i videogiochi per prezzo dal più alto al più basso
 const orderByPriceDesc = (req, res) => {
+    // Eseguiamo la query con ordinamento per prezzo discendente
     connection.query('SELECT * FROM videogame ORDER BY price DESC', (err, result) => {
+        // In caso di errore, restituiamo un errore 500
         if (err) return res.status(500).json({ error: "Database Query Failed:" + err });
+        // Aggiungiamo il percorso completo dell'immagine a ogni gioco
         const games = result.map(game => ({
             ...game,
             image: `${req.imagePath}/${game.image}`
         }))
+        // Inviamo i giochi ordinati come risposta JSON
         res.json(games);
     })
 }
 
-//  ordina per prezzo dal più basso al più alto
+// Funzione per ordinare i videogiochi per prezzo dal più basso al più alto
 const orderByPriceAsc = (req, res) => {
+    // Eseguiamo la query con ordinamento per prezzo ascendente
     connection.query('SELECT * FROM videogame ORDER BY price ASC', (err, result) => {
+        // In caso di errore, restituiamo un errore 500
         if (err) return res.status(500).json({ error: "Database Query Failed:" + err });
+        // Aggiungiamo il percorso completo dell'immagine a ogni gioco
         const games = result.map(game => ({
             ...game,
             image: `${req.imagePath}/${game.image}`
         }))
+        // Inviamo i giochi ordinati come risposta JSON
         res.json(games);
     })
 }
 
+// Funzione per ottenere i dettagli di un singolo videogioco
 const show = (req, res) => {
+    // Estraiamo l'ID dalla richiesta
     const { id } = req.params
-    console.log("dettaglio gioco");
+
     // Query per ottenere il gioco con i suoi generi
     const recordSql = `
         SELECT v.*, GROUP_CONCAT(g.name) AS genres
@@ -49,21 +64,27 @@ const show = (req, res) => {
         WHERE v.id = ?
         GROUP BY v.id
     `
+    // Eseguiamo la query passando l'ID come parametro
     connection.query(recordSql, [id], (err, recordResult) => {
+        // In caso di errore, restituiamo un errore 500
         if (err) return res.status(500).json({ error: "Database Query Failed:" + err });
 
+        // Se non troviamo risultati, restituiamo un errore 404
         if (recordResult.length === 0) return res.status(404).json({ error: "Record not found" });
 
+        // Prendiamo il primo risultato
         const record = recordResult[0]
 
-        // Trasformare la stringa di generi in un array
+        // Trasformiamo la stringa di generi in un array
         if (record.genres) {
             record.genres = record.genres.split(',');
         } else {
             record.genres = [];
         }
 
+        // Aggiungiamo il percorso completo dell'immagine
         record.image = `${req.imagePath}/${record.image}`
+        // Inviamo il gioco come risposta JSON
         res.json(record)
     })
 }
