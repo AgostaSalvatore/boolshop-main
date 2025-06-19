@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import DiscountedGamesRow from '../components/DiscountedGamesRow';
+import { NavLink } from 'react-router-dom';
 
 
 
@@ -41,23 +42,25 @@ const Homepage = () => {
                         <div className="carousel-inner">
                             {console.log(games.map(game => game.image))} {/* Verifica i percorsi delle immagini */}
                             {games.map((game, index) => (
-                                <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
-                                    {/* Immagine del gioco */}
-                                    <div className="text-center">
-                                        <img
-                                            src={game.image}
-                                            className="d-block mx-auto carousel-game-image"
-                                            alt={game.name || 'Game image'}
-                                        />
-                                    </div>
+                                <NavLink to={`/${game.id}`}>
+                                    <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
+                                        {/* Immagine del gioco */}
+                                        <div className="text-center">
+                                            <img
+                                                src={game.image}
+                                                className="d-block mx-auto carousel-game-image"
+                                                alt={game.name || 'Game image'}
+                                            />
+                                        </div>
 
-                                    {/* Informazioni sul gioco */}
-                                    <div className="mt-3 mb-4 text-center">
-                                        <div className="bg-danger text-white p-3 mx-auto" style={{ maxWidth: '80%' }} >
-                                            <p className="mt-2">{game.description}</p>
+                                        {/* Informazioni sul gioco */}
+                                        <div className="mt-3 mb-4 text-center">
+                                            <div className="bg-danger text-white p-3 mx-auto" style={{ maxWidth: '80%' }} >
+                                                <p className="mt-2">{game.description}</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </NavLink>
                             ))}
                         </div>
 
