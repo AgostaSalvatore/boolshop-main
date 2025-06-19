@@ -46,12 +46,12 @@ const CheckOut = () => {
                 <form className='chekout-form mb-3'>
                     <div className="row">
                         <div className="col-12">
-                            <h4>Inserisci i tuoi dati per completare l'ordine</h4>
+                            <h4 className='text-white'>Inserisci i tuoi dati per completare l'ordine</h4>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-12 d-flex justify-content-center">
-                            <label for="Dati-personali" className="form-label">Dati personali</label>
+                            <label for="Dati-personali" className="form-label text-white">Dati personali</label>
                         </div>
                     </div>
                     <div className="row mt-2">
@@ -81,7 +81,7 @@ const CheckOut = () => {
                     </div>
                     <div className="row mt-2">
                         <div className="col-12 d-flex justify-content-center">
-                            <label for="indirizzo-di-spedizione" className="form-label">Indirizzo di spedizione</label>
+                            <label for="indirizzo-di-spedizione" className="form-label text-white">Indirizzo di spedizione</label>
                         </div>
                     </div>
                     <div className="row mt-2">
