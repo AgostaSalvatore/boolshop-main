@@ -49,11 +49,6 @@ const Cart = () => {
                     <p className="mb-0 text-muted">{item.price}€</p>
                   </div>
                   <div className="ms-auto d-flex align-items-center gap-2">
-                    {/* Pulsante Wishlist */}
-                    <button className="btn btn-outline-secondary">
-                      <i className="bi bi-heart"></i>
-                    </button>
-
                     {/* Pulsante Rimuovi dal carrello */}
                     <button
                       className="btn btn-outline-danger"
