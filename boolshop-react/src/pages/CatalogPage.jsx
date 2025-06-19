@@ -4,6 +4,7 @@ import axios from 'axios';
 const CatalogPage = () => {
     const [games, setGames] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [viewMode, setViewMode] = useState('grid'); // Stato per la modalità di visualizzazione
 
     useEffect(() => {
         // Recupera i dati dalla tua API
@@ -20,23 +21,63 @@ const CatalogPage = () => {
 
     return (
         <div className="container mt-5">
-            <h1 className="text-center mb-4">Catalogo Giochi</h1>
+            <div className="d-flex justify-content-between align-items-center mb-4">
+                <h1>Catalogo Giochi</h1>
+                {/* Pulsante per cambiare modalità */}
+                <div>
+                    <button
+                        className={`btn btn-outline-primary me-2 ${viewMode === 'list' ? 'active' : ''}`}
+                        onClick={() => setViewMode('list')}
+                    >
+                        Lista
+                    </button>
+                    <button
+                        className={`btn btn-outline-primary ${viewMode === 'grid' ? 'active' : ''}`}
+                        onClick={() => setViewMode('grid')}
+                    >
+                        Griglia
+                    </button>
+                </div>
+            </div>
             {loading ? (
                 <p className="text-center">Caricamento giochi...</p>
             ) : (
                 <div className="row">
-                    {games.map((game) => (
-                        <div key={game.id} className="col-md-4 mb-4">
-                            <div className="card">
-                                <img src={game.image} className="card-img-top" alt={game.title} />
-                                <div className="card-body">
-                                    <h5 className="card-title">{game.title}</h5>
-                                    <p className="card-text">Prezzo: €{game.price}</p>
-                                    <button className="btn btn-primary">Dettagli</button>
+                    {viewMode === 'grid' ? (
+                        // Modalità griglia
+                        games.map((game) => (
+                            <div key={game.id} className="col-md-4 mb-4">
+                                <div className="card">
+                                    <img src={game.image} className="card-img-top" alt={game.title} />
+                                    <div className="card-body">
+                                        <h5 className="card-title">{game.title}</h5>
+                                        <p className="card-text">Prezzo: €{game.price}</p>
+                                        <button className="btn btn-primary">Dettagli</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        ))
+                    ) : (
+                        // Modalità lista
+                        games.map((game) => (
+                            <div key={game.id} className="col-12 mb-4">
+                                <div className="card">
+                                    <div className="row g-0">
+                                        <div className="col-md-4">
+                                            <img src={game.image} className="img-fluid rounded-start" alt={game.title} />
+                                        </div>
+                                        <div className="col-md-8">
+                                            <div className="card-body">
+                                                <h5 className="card-title">{game.title}</h5>
+                                                <p className="card-text">Prezzo: €{game.price}</p>
+                                                <button className="btn btn-primary">Dettagli</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    )}
                 </div>
             )}
         </div>
