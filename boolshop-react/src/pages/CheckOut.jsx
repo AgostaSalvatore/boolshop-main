@@ -2,18 +2,41 @@ import React from 'react'
 
 const CheckOut = () => {
 
-    function sendMail() {
-        let parms = {
-            name: document.getElementById('nome').value,
-            cognome: document.getElementById('cognome').value,
-            email: document.getElementById('email').value,
-            indirizzo: document.getElementById('indirizzo').value,
-            citta: document.getElementById('citta').value,
-            cap: document.getElementById('cap').value,
-            provincia: document.getElementById('provincia').value,
+    function sendMail(e) {
+        e.preventDefault();
+
+        // Get all required field values
+        const nome = document.getElementById('nome').value.trim();
+        const cognome = document.getElementById('cognome').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const indirizzo = document.getElementById('indirizzo').value.trim();
+        const citta = document.getElementById('citta').value.trim();
+        const cap = document.getElementById('cap').value.trim();
+        const provincia = document.getElementById('provincia').value.trim();
+
+        // Check if any required field is empty
+        if (!nome || !cognome || !email || !indirizzo || !citta || !cap || !provincia) {
+            alert('Inserisci tutti i campi obbligatori');
+            return; // Stop execution if form is incomplete
         }
 
-        emailjs.send('service_81lthpc', 'template_ypez885', parms).then(alert('Email inviata con successo!!!'));
+        // If all fields are filled, proceed with sending email
+        let parms = {
+            name: nome,
+            cognome: cognome,
+            email: email,
+            indirizzo: indirizzo,
+            citta: citta,
+            cap: cap,
+            provincia: provincia,
+        }
+
+        emailjs.send('service_81lthpc', 'template_ypez885', parms)
+            .then(() => {
+                alert('Email inviata con successo!!!')
+                document.querySelector('form').reset();
+            })
+            .catch(error => alert('Errore nell\'invio dell\'email: ' + error.message));
     }
 
     return (
@@ -34,7 +57,7 @@ const CheckOut = () => {
                     <div className="row mt-2">
                         <div className="col-12 d-flex justify-content-center">
                             <div className="input-group w-50">
-                                <span className="input-group-text w-25">Nome e Cognome</span>
+                                <span className="input-group-text w-25">Nome* e Cognome*</span>
                                 <input type="text" aria-label="nome" id="nome" className="form-control w-25"></input>
                                 <input type="text" aria-label="cognome" id="cognome" className="form-control w-25"></input>
                             </div>
@@ -43,7 +66,7 @@ const CheckOut = () => {
                     <div className="row mt-2">
                         <div className="col-12 d-flex justify-content-center">
                             <div className="input-group w-50">
-                                <span className="input-group-text w-25">Email</span>
+                                <span className="input-group-text w-25">Email*</span>
                                 <input type="text" aria-label="email" id="email" className="form-control w-25"></input>
                             </div>
                         </div>
@@ -51,7 +74,7 @@ const CheckOut = () => {
                     <div className="row mt-2">
                         <div className="col-12 d-flex justify-content-center">
                             <div className="input-group w-50">
-                                <span className="input-group-text w-25">Telefono</span>
+                                <span className="input-group-text w-25">Telefono*</span>
                                 <input type="text" aria-label="telefono" id="telefono" className="form-control w-25"></input>
                             </div>
                         </div>
@@ -64,7 +87,7 @@ const CheckOut = () => {
                     <div className="row mt-2">
                         <div className="col-12 d-flex justify-content-center">
                             <div className="input-group w-50">
-                                <span className="input-group-text w-25">Indirizzo</span>
+                                <span className="input-group-text w-25">Indirizzo*</span>
                                 <input type="text" aria-label="indirizzo" id="indirizzo" className="form-control w-25"></input>
                             </div>
                         </div>
@@ -72,7 +95,7 @@ const CheckOut = () => {
                     <div className=" mt-2">
                         <div className="col-12 d-flex justify-content-center">
                             <div className="input-group w-50">
-                                <span className="input-group-text w-25">Città</span>
+                                <span className="input-group-text w-25">Città*</span>
                                 <input type="text" aria-label="città" id="citta" className="form-control w-25"></input>
                             </div>
                         </div>
@@ -80,15 +103,15 @@ const CheckOut = () => {
                     <div className="row mt-2">
                         <div className="col-12 d-flex justify-content-center">
                             <div className="input-group w-50">
-                                <span className="input-group-text w-25">CAP</span>
-                                <input type="text" aria-label="cap" id="cap" className="form-control w-25"></input>
+                                <span className="input-group-text w-25">CAP*</span>
+                                <input type="number" aria-label="cap" id="cap" className="form-control w-25"></input>
                             </div>
                         </div>
                     </div>
                     <div className="row mt-2">
                         <div className="col-12 d-flex justify-content-center">
                             <div className="input-group w-50">
-                                <span className="input-group-text w-25">Provincia</span>
+                                <span className="input-group-text w-25">Provincia*</span>
                                 <input type="text" aria-label="provincia" id="provincia" className="form-control w-25"></input>
                             </div>
                         </div>
@@ -96,14 +119,14 @@ const CheckOut = () => {
                     <div className="row mt-2">
                         <div className="col-12 d-flex justify-content-center">
                             <div className="input-group w-50">
-                                <span className="input-group-text w-25">Regione</span>
+                                <span className="input-group-text w-25">Regione*</span>
                                 <input type="text" aria-label="regione" id="regione" className="form-control w-25"></input>
                             </div>
                         </div>
                     </div>
                     <div className="row mt-2">
                         <div className="col-12 d-flex justify-content-center">
-                            <button type="button" onClick={sendMail} className="btn btn-primary checkout-button">Ordina ora</button>
+                            <button type="submit" onClick={sendMail} className="btn btn-primary checkout-button">Ordina ora</button>
                         </div>
                     </div>
                 </form>
