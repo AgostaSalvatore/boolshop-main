@@ -1,19 +1,27 @@
-import React from 'react'
-import { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const CartContext = createContext(); // creo il contenitore
 
 export const useCart = () => useContext(CartContext); //hook per accedere al contesto
 
-export const CartProvider = ({ children }) => {   //creo il provider
-    const [cartItems, setCartItems] = useState([]);
+export const CartProvider = ({ children }) => {
+    const [cartItems, setCartItems] = useState(() => {
+        const stored = localStorage.getItem('cart');
+        return stored ? JSON.parse(stored) : [];
+    });
+
+    useEffect(() => {
+        localStorage.setItem('cart', JSON.stringify(cartItems));
+    }, [cartItems]);
 
     const addToCart = (product) => {
         setCartItems(prev => [...prev, product]);
     };
+
     const removeFromCart = (id) => {
         setCartItems(prev => prev.filter(item => item.id !== id));
     };
+
     const value = {
         cartItems,
         addToCart,
