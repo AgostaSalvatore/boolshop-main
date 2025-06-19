@@ -4,6 +4,7 @@ import React from 'react'
 const ProductDescription = ({ description }) => {
   return (
     <>
+        <div dangerouslySetInnerHTML={{ __html:description }} />
         {/* Contenitore principale della descrizione */}
         <div className="container-fluid py-5">
             <div className="row">
