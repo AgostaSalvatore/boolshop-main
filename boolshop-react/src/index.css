@@ -198,9 +198,9 @@ footer {
   border: 2px solid black;
   padding: 20px;
   width: 80%;
-  border: 2px solid rgb(16, 98, 167);
+  border: 2px solid #1E1E1E;
   border-radius: 10px;
-  background-color: rgb(123, 176, 219);
+  background-color: #1E1E1E;
 }
 
 .chekout-form h4 {
