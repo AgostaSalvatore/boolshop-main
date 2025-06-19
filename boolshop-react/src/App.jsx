@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import DefaultLayout from './layout/DefaultLayout'
 import Header from './components/Header'
 import Homepage from './pages/Homepage'
+import CatalogPage from './pages/CatalogPage'
 import DetailPage from './pages/DetailPage'
 import Cart from './components/Cart'
 import CheckOut from './pages/CheckOut'
@@ -22,6 +23,8 @@ function App() {
             <Route element={<DefaultLayout />}>
               {/* Homepage */}
               <Route index element={<Homepage />}></Route>
+              {/* Pagina catalogo */}
+              <Route path="/catalog" element={<CatalogPage />} />
               {/* Pagina di dettaglio prodotto */}
               <Route path='/:id' element={<DetailPage />}></Route>
               {/* Pagina carrello */}
