@@ -16,7 +16,7 @@ app.use(setImagePath); //set image path
 // Configurazione CORS personalizzata per consentire le richieste dal frontend
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "http://localhost:5173"); // Origine del frontend
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE"); // Metodi consentiti
+    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, PATCH"); // Metodi consentiti
     res.header("Access-Control-Allow-Headers", "Content-Type, Authorization"); // Header consentiti
     res.header("Access-Control-Allow-Credentials", "true"); // Consenti credenziali
     next(); // Passa al prossimo middleware

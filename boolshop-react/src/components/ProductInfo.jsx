@@ -2,14 +2,16 @@ import React from 'react'
 import { useCart } from '../context/CartContext'
 import { useWishlist } from '../context/WishlistContext';
 import { useState } from 'react';
+import axios from 'axios';
 
 // Componente che mostra le informazioni principali del prodotto e i pulsanti azione
-const ProductInfo = ({ title, genre, price, release_year, software_house, discount, product, quantity }) => {
+const ProductInfo = ({ title, genre, price, release_year, software_house, discount, product, quantity, id, initialQuantity }) => {
   // Recupera la funzione per aggiungere al carrello dal context
   const { addToCart } = useCart();
   const { addToWishlist, isInWishlist } = useWishlist(); // <-- usa i metodi della wishlist
   const [showPopup, setShowPopup] = useState(false) //Uso la variabile di stato per mostrare un popup tot secondi dopo click
   const [wishPopup, setWishPopup] = useState(false); //Uso la variabile di stato per mostrare un popup tot secondi dopo click
+  const [CurrentQuantity, setCurrentQuantity] = useState(initialQuantity); // Stato per la quantità disponibile
 
   // Gestore per il click su "Aggiungi al carrello"
   const handleAddToCart = () => {
@@ -26,6 +28,12 @@ const ProductInfo = ({ title, genre, price, release_year, software_house, discou
       setTimeout(() => setWishPopup(false), 2000);
     }
   };
+
+  const handleQuantity = () => {
+    axios.patch(`http://127.0.0.1:3000/api/boolshop/${id}`).then(() => {
+      setCurrentQuantity(prevQuantity => Math.max(prevQuantity - 1, 0));
+    }).catch((err) => console.log(err));
+  }
 
   return (
     <>
@@ -67,7 +75,7 @@ const ProductInfo = ({ title, genre, price, release_year, software_house, discou
         <button className="btn btn-outline-primary" onClick={handleAddToWishlist}>
           AGGIUNGI ALLA WISHLIST
         </button>
-        <button className="btn btn-outline-primary" onClick={handleAddToCart}>
+        <button className="btn btn-outline-primary" onClick={() => { handleAddToCart(), handleQuantity() }}>
           AGGIUNGI AL CARRELLO
         </button>
       </div>
@@ -100,7 +108,7 @@ const ProductInfo = ({ title, genre, price, release_year, software_house, discou
         </div>
         <div className="col-sm-6">
           {/* Sconto applicato */}
-          <strong>Copie disponibili: </strong> {quantity}
+          <strong>Copie disponibili: </strong> {CurrentQuantity}
         </div>
       </div>
     </>

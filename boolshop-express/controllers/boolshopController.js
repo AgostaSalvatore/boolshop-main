@@ -116,9 +116,26 @@ const store = (req, res) => {
 
 }
 
+// Funzione per aggiornare la quantità dei giochi una volta aggiunti al carrello
+const update = (req, res) => {
+    const { id } = req.params
+    const minusQuantitySql = `
+    UPDATE videogame
+    SET quantity = quantity - 1
+    WHERE id = ?`
+
+    connection.query(minusQuantitySql, [id], (err, result) => {
+        if (err) return res.status(500).json({ error: "Database Query Failed:" + err });
+
+        // Inviamo una risposta di successo
+        res.json({ message: "Quantity updated successfully" });
+    })
+}
+
 module.exports = {
     index,
     show,
     orderByPriceDesc,
-    orderByPriceAsc
+    orderByPriceAsc,
+    update
 }
