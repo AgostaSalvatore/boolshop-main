@@ -21,6 +21,11 @@ const Header = () => {
 
                         {/* Pulsanti sulla destra */}
                         <div className="d-flex">
+                            <NavLink to="/catalog">
+                                <button className="btn btn-outline-primary me-3">
+                                    <i className="bi bi-collection me-2"></i>Catalogo Giochi
+                                </button>
+                            </NavLink>
                             <button className="btn btn-outline-primary me-3">
                                 <i className="bi bi-heart me-2"></i>Wishlist
                             </button>
