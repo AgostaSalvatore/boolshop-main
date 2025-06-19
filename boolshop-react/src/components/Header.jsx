@@ -26,9 +26,11 @@ const Header = () => {
                                     <i className="bi bi-collection me-2"></i>Catalogo Giochi
                                 </button>
                             </NavLink>
-                            <button className="btn btn-outline-primary me-3">
-                                <i className="bi bi-heart me-2"></i>Wishlist
-                            </button>
+                            <NavLink to={"/wishlist"}>
+                                <button className="btn btn-outline-primary me-3">
+                                    <i className="bi bi-heart me-2"></i>Wishlist
+                                </button>
+                            </NavLink>
                             <NavLink to="/cart">
                                 <button className="btn btn-outline-primary me-3">
                                     <i className="bi bi-cart me-2"></i>Carrello

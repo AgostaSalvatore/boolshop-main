@@ -1,33 +1,52 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
-export const WishlistContext = createContext();
+// 1. Crea il contesto
+const WishlistContext = createContext();
 
+// 2. Hook personalizzato per accedere al contesto
+export const useWishlist = () => useContext(WishlistContext);
+
+// 3. Provider che avvolge l'app e fornisce il contesto
 export const WishlistProvider = ({ children }) => {
-    const [wishlist, setWishlist] = useState([]);
-
-    // Carica dal localStorage
-    useEffect(() => {
+    // Stato inizializzato da localStorage
+    const [wishlist, setWishlist] = useState(() => {
         const stored = localStorage.getItem('wishlist');
-        if (stored) setWishlist(JSON.parse(stored));
-    }, []);
+        return stored ? JSON.parse(stored) : [];
+    });
 
-    // Salva ogni volta che cambia
+    // Sincronizza il localStorage ogni volta che cambia la wishlist
     useEffect(() => {
         localStorage.setItem('wishlist', JSON.stringify(wishlist));
     }, [wishlist]);
 
-    const addToWishlist = (item) => {
-        if (!wishlist.find(i => i.id === item.id)) {
-            setWishlist(prev => [...prev, item]);
+    // Aggiunge un elemento alla wishlist, se non già presente
+    const addToWishlist = (game) => {
+        const exists = wishlist.some(item => item.id === game.id);
+        if (!exists) {
+            setWishlist(prev => [...prev, game]);
         }
     };
 
+    // Rimuove un elemento dalla wishlist tramite ID
     const removeFromWishlist = (id) => {
-        setWishlist(prev => prev.filter(i => i.id !== id));
+        setWishlist(prev => prev.filter(item => item.id !== id));
+    };
+
+    // Verifica se un elemento è già nella wishlist
+    const isInWishlist = (id) => {
+        return wishlist.some(item => item.id === id);
+    };
+
+    // Valori condivisi dal contesto
+    const value = {
+        wishlist,
+        addToWishlist,
+        removeFromWishlist,
+        isInWishlist
     };
 
     return (
-        <WishlistContext.Provider value={{ wishlist, addToWishlist, removeFromWishlist }}>
+        <WishlistContext.Provider value={value}>
             {children}
         </WishlistContext.Provider>
     );
