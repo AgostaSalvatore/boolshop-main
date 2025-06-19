@@ -10,13 +10,13 @@ export const useWishlist = () => useContext(WishlistContext);
 export const WishlistProvider = ({ children }) => {
     // Stato inizializzato da localStorage
     const [wishlist, setWishlist] = useState(() => {
-        const stored = localStorage.getItem('wishlist');
+        const stored = sessionStorage.getItem('wishlist');
         return stored ? JSON.parse(stored) : [];
     });
 
     // Sincronizza il localStorage ogni volta che cambia la wishlist
     useEffect(() => {
-        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        sessionStorage.setItem('wishlist', JSON.stringify(wishlist));
     }, [wishlist]);
 
     // Aggiunge un elemento alla wishlist, se non già presente

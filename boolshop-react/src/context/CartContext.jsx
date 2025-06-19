@@ -6,12 +6,12 @@ export const useCart = () => useContext(CartContext); //hook per accedere al con
 
 export const CartProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState(() => {
-        const stored = localStorage.getItem('cart');
+        const stored = sessionStorage.getItem('cart');
         return stored ? JSON.parse(stored) : [];
     });
 
     useEffect(() => {
-        localStorage.setItem('cart', JSON.stringify(cartItems));
+        sessionStorage.setItem('cart', JSON.stringify(cartItems));
     }, [cartItems]);
 
     const addToCart = (product) => {
