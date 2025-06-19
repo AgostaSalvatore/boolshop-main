@@ -18,11 +18,15 @@ const Cart = () => {
         <div className="col-12 col-md-9 mb-4">
           <h1 className="text-primary fw-bold mb-3">Il tuo carrello</h1>
           {cartItems.length === 0 ? (
-            <p>Il carrello è vuoto.
-              Vai alla
-              <a href="/" className="text-decoration-none fw-bold" style={{ color: "black" }}> Homepage </a>
-              per trovare i prodotti che desideri.
-            </p>
+            <div>
+              <p className="fs-5">Il carrello è vuoto.</p>
+              <NavLink
+                to="/"
+                className="btn btn-outline-dark mt-4"
+              >
+                Torna alla Homepage
+              </NavLink>
+            </div>
           ) : (
             <ul className="list-unstyled">
               {/* Filtra ogni prodotto in un elemento della lista */}
@@ -63,22 +67,25 @@ const Cart = () => {
             </ul>
           )}
         </div>
-        <div className="col-12 col-md-3">
-          <h2 className="text-success fw-bold mb-3">Riepilogo Ordine</h2>
-          <div className="d-flex justify-content-between gap-5 mb-2">
-            <span>Prodotti</span>
-            <span>{productsTotal.toFixed(2)} €</span>
+        {cartItems.length > 0 && (
+          <div className="col-12 col-md-3">
+            <h2 className="text-success fw-bold mb-3">Riepilogo Ordine</h2>
+            <div className="d-flex justify-content-between gap-5 mb-2">
+              <span>Prodotti</span>
+              <span>{productsTotal.toFixed(2)} €</span>
+            </div>
+            <div className="d-flex justify-content-between gap-5 mb-2">
+              <span>Spedizione</span>
+              <span>{hasFreeShipping ? "Gratuita" : "4,99 €"}</span>
+            </div>
+            <hr />
+            <div className="d-flex justify-content-between gap-5 fw-bold mb-2">
+              <span>Totale</span>
+              <span>{finalTotal.toFixed(2)} €</span>
+            </div>
           </div>
-          <div className="d-flex justify-content-between gap-5 mb-2">
-            <span>Costo di spedizione</span>
-            <span>{hasFreeShipping ? "Gratuita" : "4,99 €"}</span>
-          </div>
-          <hr />
-          <div className="d-flex justify-content-between gap-5 fw-bold mb-2">
-            <span>Totale</span>
-            <span>{finalTotal.toFixed(2)} € </span>
-          </div>
-        </div>
+        )}
+
 
         {/* Riga separata per il pulsante di checkout */}
         <div className="row">
