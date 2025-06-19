@@ -4,7 +4,7 @@ import { useWishlist } from '../context/WishlistContext';
 import { useState } from 'react';
 
 // Componente che mostra le informazioni principali del prodotto e i pulsanti azione
-const ProductInfo = ({ title, genre, price, release_year, software_house, discount, product }) => {
+const ProductInfo = ({ title, genre, price, release_year, software_house, discount, product, quantity }) => {
   // Recupera la funzione per aggiungere al carrello dal context
   const { addToCart } = useCart();
   const { addToWishlist, isInWishlist } = useWishlist(); // <-- usa i metodi della wishlist
@@ -97,6 +97,10 @@ const ProductInfo = ({ title, genre, price, release_year, software_house, discou
         <div className="col-sm-6">
           {/* Sconto applicato */}
           <strong>Sconto:</strong> {discount}
+        </div>
+        <div className="col-sm-6">
+          {/* Sconto applicato */}
+          <strong>Copie disponibili: </strong> {quantity}
         </div>
       </div>
     </>
