@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const CatalogPage = () => {
     const [games, setGames] = useState([]);
     const [loading, setLoading] = useState(true);
     const [viewMode, setViewMode] = useState('grid'); // Stato per la modalità di visualizzazione
+    const navigate = useNavigate(); // Hook per la navigazione
 
     useEffect(() => {
         // Recupera i dati dalla tua API
@@ -52,7 +54,12 @@ const CatalogPage = () => {
                                     <div className="card-body">
                                         <h5 className="card-title">{game.title}</h5>
                                         <p className="card-text">Prezzo: €{game.price}</p>
-                                        <button className="btn btn-primary">Dettagli</button>
+                                        <button
+                                            className="btn btn-primary"
+                                            onClick={() => navigate(`/${game.id}`)} // Naviga alla pagina di dettaglio
+                                        >
+                                            Dettagli
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -70,7 +77,12 @@ const CatalogPage = () => {
                                             <div className="card-body">
                                                 <h5 className="card-title">{game.title}</h5>
                                                 <p className="card-text">Prezzo: €{game.price}</p>
-                                                <button className="btn btn-primary">Dettagli</button>
+                                                <button
+                                                    className="btn btn-primary"
+                                                    onClick={() => navigate(`/${game.id}`)} // Naviga alla pagina di dettaglio
+                                                >
+                                                    Dettagli
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
