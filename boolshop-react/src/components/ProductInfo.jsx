@@ -75,7 +75,9 @@ const ProductInfo = ({ title, genre, price, release_year, software_house, discou
         <button className="btn btn-outline-primary" onClick={handleAddToWishlist}>
           AGGIUNGI ALLA WISHLIST
         </button>
-        <button className="btn btn-outline-primary" onClick={() => { handleAddToCart(), handleQuantity() }}>
+        <button className="btn btn-outline-primary"
+          disabled={CurrentQuantity === 0}
+          onClick={() => { handleAddToCart(), handleQuantity() }}>
           AGGIUNGI AL CARRELLO
         </button>
       </div>
