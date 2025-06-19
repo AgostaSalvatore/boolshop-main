@@ -6,11 +6,14 @@ import { Outlet } from 'react-router-dom';
 const DefaultLayout = () => {
     return (
         <>
-            <Header />
-            <main className='Container'>
-                <Outlet />
-            </main>
-            <Footer />
+            <div className="d-flex flex-column min-vh-100">
+                <Header />
+                <main className="flex-grow-1">
+                    <Outlet />
+                </main>
+                <Footer />
+            </div>
+
         </>
     )
 }

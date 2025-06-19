@@ -1,12 +1,11 @@
 // Middleware che gestisce gli errori generali dell'applicazione
 function errorHandler(err, req, res, next) {
-    // Imposta lo stato della risposta a 500 (Errore interno del server)
-    res.status(500)
-    // Invia una risposta JSON con un messaggio di errore generico
-    res.json({
-        error: "Internal Server Error",
-        message: "Something went wrong"
-    })
+    console.error('Unhandled error:', err);
+    res.status(500).json({
+        error: err.name || "Internal Server Error",
+        message: err.message,
+        stack: err.stack
+    });
 };
 
 module.exports = errorHandler

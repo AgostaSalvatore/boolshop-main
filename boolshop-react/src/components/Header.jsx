@@ -13,7 +13,7 @@ const Header = () => {
                     <div className="d-flex align-items-center justify-content-between">
                         {/* Logo sulla sinistra */}
                         <NavLink to="/">
-                            <img className="logo img-fluid" src="/img/boolshop-logo-3.png" alt="Logo" />
+                            <img className="logo img-fluid" src="/img/boolshop-logo-5.png" alt="Logo" />
                         </NavLink>
 
                         {/* Search bar al centro */}
@@ -21,11 +21,18 @@ const Header = () => {
 
                         {/* Pulsanti sulla destra */}
                         <div className="d-flex">
+                            <NavLink to="/catalog">
+                                <button className="btn btn-outline-primary me-3">
+                                    <i className="bi bi-collection me-2"></i>Catalogo Giochi
+                                </button>
+                            </NavLink>
                             <button className="btn btn-outline-primary me-3">
-                                <i className="bi bi-heart">Wishlist</i>
+                                <i className="bi bi-heart me-2"></i>Wishlist
                             </button>
-                            <NavLink to="/cart" className="btn btn-outline-primary">
-                                <i className="bi bi-cart me-1"></i> Carrello
+                            <NavLink to="/cart">
+                                <button className="btn btn-outline-primary me-3">
+                                    <i className="bi bi-cart me-2"></i>Carrello
+                                </button>
                             </NavLink>
                         </div>
                     </div>
