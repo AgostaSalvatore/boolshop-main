@@ -110,6 +110,12 @@ const show = (req, res) => {
     })
 }
 
+
+//store ordine
+const store = (req, res) => {
+
+}
+
 module.exports = {
     index,
     show,
