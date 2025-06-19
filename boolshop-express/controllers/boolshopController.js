@@ -23,7 +23,7 @@ const index = (req, res) => {
         params.push(searchTerm, searchTerm, searchTerm, searchTerm);
     }
 
-    sql += ' GROUP BY videogame.id';
+    sql += ' GROUP BY videogame.id ORDER BY videogame.title ASC';
     // Eseguiamo la query per selezionare tutti i videogiochi
     connection.query(sql, params, (err, gamesResult) => {
         // In caso di errore, restituiamo un errore 500
