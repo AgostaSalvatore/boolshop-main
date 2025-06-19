@@ -17,7 +17,7 @@ const CheckOut = () => {
         // Check if any required field is empty
         if (!nome || !cognome || !email || !indirizzo || !citta || !cap || !provincia) {
             alert('Inserisci tutti i campi obbligatori');
-            return; // Stop execution if form is incomplete
+            return; //fermo il processo
         }
 
         // If all fields are filled, proceed with sending email
