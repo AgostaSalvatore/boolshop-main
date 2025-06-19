@@ -52,6 +52,8 @@ const DetailPage = () => {
               discount={videogame?.discount}
               product={videogame}
               quantity={videogame?.quantity}
+              id={id}
+              initialQuantity={videogame?.quantity}
             />
           </div>
         </div>
