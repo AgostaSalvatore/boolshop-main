@@ -6,6 +6,7 @@ import Homepage from './pages/Homepage'
 import CatalogPage from './pages/CatalogPage'
 import DetailPage from './pages/DetailPage'
 import Cart from './components/Cart'
+import Wishlist from './components/Wishlist'
 import CheckOut from './pages/CheckOut'
 import { CartProvider } from './context/CartContext'
 import { WishlistProvider } from './context/WishlistContext'
@@ -31,6 +32,8 @@ function App() {
                 <Route path='/:id' element={<DetailPage />}></Route>
                 {/* Pagina carrello */}
                 <Route path="/cart" element={<Cart />} />
+                {/* Pagina wishlist */}
+                <Route path="/wishlist" element={<Wishlist />} />
                 {/* Pagina checkout */}
                 <Route path='/checkout' element={<CheckOut />} />
               </Route>
