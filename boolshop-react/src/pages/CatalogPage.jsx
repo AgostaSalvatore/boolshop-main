@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 const CatalogPage = () => {
     const [games, setGames] = useState([]);
+    const [filteredGames, setFilteredGames] = useState([]);
     const [loading, setLoading] = useState(true);
     const [viewMode, setViewMode] = useState('grid'); // Stato per la modalità di visualizzazione
     const navigate = useNavigate(); // Hook per la navigazione
+    const location = useLocation(); // Hook per accedere ai parametri dell'URL
 
     useEffect(() => {
         // Recupera i dati dalla tua API
@@ -21,10 +23,43 @@ const CatalogPage = () => {
             });
     }, []);
 
+    // Effetto per filtrare i giochi in base al parametro di ricerca nell'URL
+    useEffect(() => {
+        if (!loading) {
+            const searchParams = new URLSearchParams(location.search);
+            const searchTerm = searchParams.get('search');
+
+            if (searchTerm) {
+                // Filtra i giochi in base al termine di ricerca
+                const filtered = games.filter(game =>
+                    game.title.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+                setFilteredGames(filtered);
+            } else {
+                // Se non c'è un termine di ricerca, mostra tutti i giochi
+                setFilteredGames(games);
+            }
+        }
+    }, [games, location.search, loading]);
+
     return (
         <div className="container mt-5">
             <div className="d-flex justify-content-between align-items-center mb-4">
-                <h1>Catalogo Giochi</h1>
+                <div>
+                    <h1>Catalogo Giochi</h1>
+                    {/* Mostra il termine di ricerca se presente */}
+                    {new URLSearchParams(location.search).get('search') && (
+                        <p className="text-muted">
+                            Risultati per: "{new URLSearchParams(location.search).get('search')}"
+                            <button
+                                className="btn btn-sm btn-outline-secondary ms-2"
+                                onClick={() => navigate('/catalog')}
+                            >
+                                Mostra tutti
+                            </button>
+                        </p>
+                    )}
+                </div>
                 {/* Pulsante per cambiare modalità */}
                 <div>
                     <button
@@ -47,7 +82,7 @@ const CatalogPage = () => {
                 <div className="row">
                     {viewMode === 'grid' ? (
                         // Modalità griglia
-                        games.map((game) => (
+                        filteredGames.map((game) => (
                             <div key={game.id} className="col-md-4 mb-4">
                                 <div className="card">
                                     <img src={game.image} className="card-img-top" alt={game.title} />
@@ -66,7 +101,7 @@ const CatalogPage = () => {
                         ))
                     ) : (
                         // Modalità lista
-                        games.map((game) => (
+                        filteredGames.map((game) => (
                             <div key={game.id} className="col-12 mb-4">
                                 <div className="card">
                                     <div className="row g-0">

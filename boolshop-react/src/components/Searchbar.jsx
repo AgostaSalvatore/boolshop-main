@@ -47,16 +47,42 @@ const Searchbar = () => {
     setResults([]);
   };
 
+  // Gestisce il click sul pulsante di ricerca
+  const handleSearchClick = () => {
+    if (searchText.trim() !== '') {
+      // Naviga alla pagina del catalogo con il parametro di ricerca
+      navigate(`/catalog?search=${encodeURIComponent(searchText)}`);
+      // Manteniamo il testo nella barra di ricerca
+    }
+  };
+
+  // Gestisce la pressione del tasto Enter nella barra di ricerca
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSearchClick();
+    }
+  };
+
   return (
     <div className="searchbar-wrapper">
-      {/* Input di ricerca */}
-      <input
-        type="text"
-        className="searchbar-input"
-        placeholder="Search videogames..."
-        value={searchText}
-        onChange={handleChange}
-      />
+      <div className="searchbar-input-container d-flex">
+        {/* Input di ricerca */}
+        <input
+          type="text"
+          className="searchbar-input flex-grow-1"
+          placeholder="Search videogames..."
+          value={searchText}
+          onChange={handleChange}
+        />
+        {/* Pulsante di ricerca */}
+        <button
+          className="btn btn-primary search-button mx-2"
+          onClick={handleSearchClick}
+          aria-label="Cerca"
+        >
+          Cerca
+        </button>
+      </div>
 
       {/* Dropdown dei risultati */}
       {results.length > 0 && (
