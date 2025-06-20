@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import { useCart } from '../context/CartContext';
 
 const CatalogPage = () => {
     const [games, setGames] = useState([]);
@@ -42,6 +43,17 @@ const CatalogPage = () => {
         }
     }, [games, location.search, loading]);
 
+    const { addToCart } = useCart();
+    const [showPopup, setShowPopup] = useState(false)
+
+    const handleAddToCart = (game) => {
+        addToCart(game) // Aggiunge il prodotto al carrello
+        setShowPopup(true) //Attiva il metodo
+
+        setTimeout(() => setShowPopup(false), 2000);  // dopo 2 secondi nasconde il popup
+    };
+
+
     return (
         <div className="container mt-5">
             <div className="d-flex justify-content-between align-items-center mb-4">
@@ -80,6 +92,22 @@ const CatalogPage = () => {
                 <p className="text-center">Caricamento giochi...</p>
             ) : (
                 <div className="row">
+                    {showPopup && (
+                        <div className="position-fixed top-0 end-0 p-3" style={{ zIndex: 1050 }}>
+                            <div className="toast show align-items-center text-white bg-success border-0">
+                                <div className="d-flex">
+                                    <div className="toast-body">
+                                        ✅ Articolo aggiunto al carrello!
+                                    </div>
+                                    <button
+                                        type="button"
+                                        className="btn-close btn-close-white me-2 m-auto"
+                                        onClick={() => setShowPopup(false)}
+                                    ></button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                     {viewMode === 'grid' ? (
                         // Modalità griglia
                         filteredGames.map((game) => (
@@ -95,6 +123,7 @@ const CatalogPage = () => {
                                         >
                                             Dettagli
                                         </button>
+                                        <button onClick={() => { handleAddToCart(game) }} type="button" className="btn btn-danger mt-2">Aggiungi al carrello</button>
                                     </div>
                                 </div>
                             </div>
@@ -118,6 +147,7 @@ const CatalogPage = () => {
                                                 >
                                                     Dettagli
                                                 </button>
+                                                <button onClick={() => { handleAddToCart(game) }} type="button" className="btn btn-danger mt-2">Aggiungi al carrello</button>
                                             </div>
                                         </div>
                                     </div>
