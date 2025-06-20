@@ -17,5 +17,7 @@ router.get("/:id", boolshopController.show);
 // Rotta per decurtare la quantià una volta aggiunto il prodotto al carrello
 router.patch("/:id", boolshopController.update);
 
+router.get("/:id/related", boolshopController.relatedProducts)
+
 // Export
 module.exports = router;

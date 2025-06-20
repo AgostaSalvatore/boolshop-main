@@ -63,9 +63,9 @@ const DetailPage = () => {
           </div>
         </div>
         {/* Sezione che mostra i prodotti correlati */}
-        <div className="row bg-primary mt-4">
+        <div className="row bg-black mt-4">
           <div className="col-12">
-            <RelatedProducts currentProduct={videogame} />
+            <RelatedProducts currentProductId={id}/>
           </div>
         </div>
       </div>

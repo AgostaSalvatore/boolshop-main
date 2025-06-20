@@ -71,6 +71,54 @@ const orderByPriceAsc = (req, res) => {
     })
 }
 
+// Funzione per ottenere i prodotti correlati ad un videogioco
+const relatedProducts = (req, res) => {
+    const productId = req.params.id;
+    
+    // Query SQL per trovare prodotti correlati
+    const query = `
+        SELECT DISTINCT 
+            v.id,
+            v.title,
+            v.price,
+            v.image,
+            v.discount,
+            v.software_house
+        FROM videogame v
+        JOIN videogame_genre vg ON v.id = vg.videogame_id
+        WHERE vg.genre_id IN (
+            SELECT genre_id 
+            FROM videogame_genre 
+            WHERE videogame_id = ?
+        )
+        AND v.id != ?
+        ORDER BY RAND()
+        LIMIT 8
+    `;
+    
+    // Esegui la query
+    connection.query(query, [productId, productId], (error, results) => {
+        if (error) {
+            console.log('Errore nel recuperare prodotti correlati:', error);
+            return res.status(500).json({ 
+                success: false, 
+                message: 'Errore del server' 
+            });
+        }
+
+        // Aggiungi il percorso completo dell'immagine a ogni prodotto correlato
+        const products = results.map(product => ({
+            ...product,
+            image: `${req.imagePath}/${product.image}`
+        }));
+
+        res.json({
+            success: true,
+            data: products
+        });
+    });
+};
+
 // Funzione per ottenere i dettagli di un singolo videogioco
 const show = (req, res) => {
     // Estraiamo l'ID dalla richiesta
@@ -137,5 +185,6 @@ module.exports = {
     show,
     orderByPriceDesc,
     orderByPriceAsc,
+    relatedProducts,
     update
 }
