@@ -39,9 +39,8 @@ const index = (req, res) => {
     })
 }
 
-// Funzione per ottenere i videogiochi filtrati per genere
 const filterByGenre = (req, res) => {
-    const genre = req.query.genre; // Ottieni il genere dai parametri di query
+    const genres = req.query.genre ? req.query.genre.split(",") : []; // Ottieni i generi come array
 
     let sql = `
     SELECT videogame.*, GROUP_CONCAT(genre.name SEPARATOR ', ') AS genres
@@ -51,22 +50,21 @@ const filterByGenre = (req, res) => {
     `;
     const params = [];
 
-    if (genre) {
-        sql += `WHERE genre.name = ? `;
-        params.push(genre);
+    if (genres.length > 0) {
+        const placeholders = genres.map(() => "?").join(", "); // Crea i placeholder per i generi
+        sql += `WHERE genre.name IN (${placeholders}) `;
+        params.push(...genres); // Aggiungi i generi ai parametri
     }
 
     sql += 'GROUP BY videogame.id ORDER BY videogame.title ASC';
 
-    // Eseguiamo la query per filtrare i videogiochi per genere
     connection.query(sql, params, (err, gamesResult) => {
         if (err) {
             console.error("Errore nella query:", err);
             return res.status(500).json({ error: "Database Query Failed:" + err });
         }
 
-        // Restituiamo i videogiochi filtrati come JSON
-        res.json(gamesResult);
+        res.json(gamesResult); // Restituisci i videogiochi filtrati come JSON
     });
 };
 
@@ -105,7 +103,7 @@ const orderByPriceAsc = (req, res) => {
 // Funzione per ottenere i prodotti correlati ad un videogioco
 const relatedProducts = (req, res) => {
     const productId = req.params.id;
-    
+
     // Query SQL per trovare prodotti correlati
     const query = `
         SELECT DISTINCT 
@@ -126,14 +124,14 @@ const relatedProducts = (req, res) => {
         ORDER BY RAND()
         LIMIT 8
     `;
-    
+
     // Esegui la query
     connection.query(query, [productId, productId], (error, results) => {
         if (error) {
             console.log('Errore nel recuperare prodotti correlati:', error);
-            return res.status(500).json({ 
-                success: false, 
-                message: 'Errore del server' 
+            return res.status(500).json({
+                success: false,
+                message: 'Errore del server'
             });
         }
 
