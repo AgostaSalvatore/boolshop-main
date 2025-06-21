@@ -61,6 +61,9 @@ const Searchbar = () => {
     if (e.key === 'Enter') {
       handleSearchClick();
     }
+    if (e.key === 'Escape') {
+      setResults([]);
+    }
   };
 
   return (
@@ -73,6 +76,7 @@ const Searchbar = () => {
           placeholder="Search videogames..."
           value={searchText}
           onChange={handleChange}
+          onKeyDown={handleKeyPress}
         />
         {/* Pulsante di ricerca */}
         <button
