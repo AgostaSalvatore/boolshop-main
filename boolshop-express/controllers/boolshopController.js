@@ -35,7 +35,7 @@ const index = (req, res) => {
         const games = gamesResult.map(game => ({
             ...game,
             image: `${req.imagePath}/${game.image}`,
-            slug: game.slug 
+            slug: game.slug
         }))
         // Inviamo i giochi come risposta JSON
         res.json(games)
