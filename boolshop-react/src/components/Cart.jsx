@@ -86,11 +86,17 @@ const Cart = () => {
         <div className="row">
           <div className="col-12">
             {/* Pulsante per andare al pagamento */}
-            <NavLink to={"/checkout"}>
-              <button type="button" className="btn checkout-button btn-primary">
+            {cartItems.length === 0 ? (
+              <button type="button" className="btn checkout-button btn-primary disabled">
                 Vai al pagamento
               </button>
-            </NavLink>
+            ) : (
+              <NavLink to={"/checkout"}>
+                <button type="button" className="btn checkout-button btn-primary">
+                  Vai al pagamento
+                </button>
+              </NavLink>
+            )}
           </div>
         </div>
       </div>
