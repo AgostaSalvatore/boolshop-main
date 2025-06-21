@@ -20,12 +20,12 @@ const CatalogPage = () => {
             .then((response) => {
                 // Estrai tutti i generi unici dai giochi
                 const allGenres = new Set();
-                
+
                 response.data.forEach(game => {
                     if (game.genres) {
                         const genresStr = String(game.genres);
                         const genresList = genresStr.split(',');
-                        
+
                         genresList.forEach(genre => {
                             const trimmedGenre = genre.trim();
                             if (trimmedGenre) {
@@ -34,24 +34,24 @@ const CatalogPage = () => {
                         });
                     }
                 });
-                
+
                 setGenres(Array.from(allGenres).sort());
             })
             .catch((error) => {
                 console.error('Errore nel recupero dei generi:', error);
             });
     };
-    
+
     // Funzione per caricare i giochi (con o senza filtro per genere)
     const loadGames = (genreFilter = null) => {
         setLoading(true);
-        
+
         // Costruisci l'URL in base al filtro
         let url = 'http://127.0.0.1:3000/api/boolshop';
         if (genreFilter) {
             url = `http://127.0.0.1:3000/api/boolshop/catalog?genre=${genreFilter}`;
         }
-        
+
         axios.get(url)
             .then((response) => {
                 setGames(response.data);
@@ -63,11 +63,11 @@ const CatalogPage = () => {
                 setLoading(false);
             });
     };
-    
+
     useEffect(() => {
         // Carica i generi all'avvio
         loadGenres();
-        
+
         // Carica tutti i giochi all'avvio
         loadGames();
     }, []);
@@ -105,7 +105,7 @@ const CatalogPage = () => {
     // Gestisce il cambiamento del genere selezionato
     const handleGenreChange = (e) => {
         const selectedGenre = e.target.value;
-        
+
         if (selectedGenre === "") {
             // Se è selezionato "Tutti i generi", carica tutti i giochi
             loadGames();
@@ -132,11 +132,11 @@ const CatalogPage = () => {
                             </button>
                         </p>
                     )}
-                    
+
                     {/* Filtro per genere */}
                     <div className="mt-3">
-                        <select 
-                            className="form-select" 
+                        <select
+                            className="form-select"
                             onChange={handleGenreChange}
                             aria-label="Filtra per genere"
                         >
@@ -194,7 +194,7 @@ const CatalogPage = () => {
                                         <p className="card-text">Prezzo: €{game.price}</p>
                                         <button
                                             className="btn btn-primary"
-                                            onClick={() => navigate(`/${game.id}`)} // Naviga alla pagina di dettaglio
+                                            onClick={() => navigate(`/${game.slug}`)} // Naviga alla pagina di dettaglio con slug
                                         >
                                             Dettagli
                                         </button>

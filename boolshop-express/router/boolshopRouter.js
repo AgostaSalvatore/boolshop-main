@@ -15,7 +15,7 @@ router.get("/price-desc", boolshopController.orderByPriceDesc);
 // Rotta per ottenere i videogiochi ordinati per prezzo crescente
 router.get("/price-asc", boolshopController.orderByPriceAsc);
 // Rotta per ottenere i dettagli di un singolo videogioco tramite il suo ID
-router.get("/:id", boolshopController.show);
+router.get("/:slug", boolshopController.show);
 // Rotta per decurtare la quantià una volta aggiunto il prodotto al carrello
 router.patch("/:id", boolshopController.update);
 

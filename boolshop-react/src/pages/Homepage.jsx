@@ -18,7 +18,7 @@ const Homepage = () => {
 
     // Funzione per recuperare i giochi dall'API
     const fetchGames = () => {
-        axios.get('http://127.0.0.1:3000/api/boolShop/')
+        axios.get(`http://127.0.0.1:3000/api/boolshop`)
             .then((resp) => {
                 setGames(resp.data); // Salva tutti i giochi nello stato `games`
                 const discountedGames = resp.data.filter(game => game.discount > 0); // Filtra i giochi in sconto
@@ -42,7 +42,7 @@ const Homepage = () => {
                         <div className="carousel-inner">
                             {console.log(games.map(game => game.image))} {/* Verifica i percorsi delle immagini */}
                             {games.map((game, index) => (
-                                <NavLink to={`/${game.id}`}>
+                                <NavLink to={`/${game.slug}`} key={game.id}>
                                     <div key={index} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
                                         {/* Immagine del gioco */}
                                         <div className="text-center">

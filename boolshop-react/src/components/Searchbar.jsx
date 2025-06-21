@@ -39,9 +39,9 @@ const Searchbar = () => {
   };
 
   // Gestisce il click su un risultato della ricerca
-  const handleItemClick = (videogameId) => {
+  const handleItemClick = (slug) => {
     // Naviga alla pagina di dettaglio passando l'ID del videogame
-    navigate(`/${videogameId}`);
+    navigate(`/${slug}`);
     // Pulisce la searchbar e i risultati dopo il click
     setSearchText('');
     setResults([]);
@@ -96,7 +96,7 @@ const Searchbar = () => {
             <div
               key={videogame.id}
               className="searchbar-item"
-              onClick={() => handleItemClick(videogame.id)}
+              onClick={() => handleItemClick(videogame.slug)}
               style={{ cursor: 'pointer' }}
             >
               {/* Titolo del videogioco */}

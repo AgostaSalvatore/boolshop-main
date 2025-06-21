@@ -10,14 +10,14 @@ import RelatedProducts from "../components/RelatedProducts";
 // Pagina di dettaglio del prodotto
 const DetailPage = () => {
   // Recupera l'id del prodotto dalla URL
-  const { id } = useParams();
+  const { slug } = useParams();
 
   // Stato che contiene i dati del videogioco selezionato
   const [videogame, setVideogame] = useState(null);
 
   // Funzione per recuperare i dati del videogioco tramite chiamata API
   const fetchVideogame = () => {
-    axios.get(`http://127.0.0.1:3000/api/boolshop/${id}`).then((resp) => {
+    axios.get(`http://127.0.0.1:3000/api/boolshop/${slug}`).then((resp) => {
       setVideogame(resp.data)
     }).catch((err) => console.log(err));
   }
@@ -25,7 +25,7 @@ const DetailPage = () => {
   // Effetto che richiama fetchVideogame ogni volta che cambia l'id
   useEffect(() => {
     fetchVideogame();
-  }, [id]);
+  }, [slug]);
 
   // Mostra un messaggio di caricamento se i dati non sono ancora disponibili
   if (!videogame) {
@@ -52,7 +52,7 @@ const DetailPage = () => {
               discount={videogame?.discount}
               product={videogame}
               quantity={videogame?.quantity}
-              id={id}
+              id={videogame?.id}
               initialQuantity={videogame?.quantity}
             />
           </div>
@@ -65,7 +65,7 @@ const DetailPage = () => {
         {/* Sezione che mostra i prodotti correlati */}
         <div className="row bg-black mt-4">
           <div className="col-12">
-            <RelatedProducts currentProductId={id}/>
+            <RelatedProducts currentProductId={videogame?.id} />
           </div>
         </div>
       </div>

@@ -28,12 +28,12 @@ function App() {
                 <Route index element={<Homepage />}></Route>
                 {/* Pagina catalogo */}
                 <Route path="/catalog" element={<CatalogPage />} />
-                {/* Pagina di dettaglio prodotto */}
-                <Route path='/:id' element={<DetailPage />}></Route>
                 {/* Pagina carrello */}
                 <Route path="/cart" element={<Cart />} />
                 {/* Pagina wishlist */}
                 <Route path="/wishlist" element={<Wishlist />} />
+                {/* Pagina di dettaglio prodotto */}
+                <Route path='/:slug' element={<DetailPage />}></Route>
                 {/* Pagina checkout */}
                 <Route path='/checkout' element={<CheckOut />} />
               </Route>

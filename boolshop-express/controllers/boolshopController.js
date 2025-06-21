@@ -1,12 +1,14 @@
 // Importiamo la connessione al database
 const connection = require('../data/db')
+// Importo la funzione slugify
+const slugify = require('../utils/slugify');
 
 // Funzione per ottenere tutti i videogiochi
 const index = (req, res) => {
     const search = req.query.search;
     console.log('Parametro search:', search);
     let sql = `
-    SELECT videogame.*, GROUP_CONCAT(genre.name SEPARATOR ', ') AS genres
+    SELECT videogame.*, videogame.slug, GROUP_CONCAT(genre.name SEPARATOR ', ') AS genres
     FROM videogame
     JOIN videogame_genre ON videogame.id = videogame_genre.videogame_id
     JOIN genre ON videogame_genre.genre_id = genre.id`;
@@ -29,10 +31,11 @@ const index = (req, res) => {
         // In caso di errore, restituiamo un errore 500
         if (err) return res.status(500).json({ error: "Database Query Failed:" + err });
 
-        // Aggiungiamo il percorso completo dell'immagine a ogni gioco
+        // Aggiungiamo il percorso completo dell'immagine a ogni gioco e creiamo lo slug
         const games = gamesResult.map(game => ({
             ...game,
-            image: `${req.imagePath}/${game.image}`
+            image: `${req.imagePath}/${game.image}`,
+            slug: game.slug 
         }))
         // Inviamo i giochi come risposta JSON
         res.json(games)
@@ -43,7 +46,7 @@ const filterByGenre = (req, res) => {
     const genres = req.query.genre ? req.query.genre.split(",") : []; // Ottieni i generi come array
 
     let sql = `
-    SELECT videogame.*, GROUP_CONCAT(genre.name SEPARATOR ', ') AS genres
+    SELECT videogame.*, videogame.slug, GROUP_CONCAT(genre.name SEPARATOR ', ') AS genres
     FROM videogame
     JOIN videogame_genre ON videogame.id = videogame_genre.videogame_id
     JOIN genre ON videogame_genre.genre_id = genre.id
@@ -69,7 +72,7 @@ const filterByGenre = (req, res) => {
             ...game,
             image: `${req.imagePath}/${game.image}`
         }));
-        
+
         res.json(games); // Restituisci i videogiochi filtrati come JSON
     });
 };
@@ -118,7 +121,8 @@ const relatedProducts = (req, res) => {
             v.price,
             v.image,
             v.discount,
-            v.software_house
+            v.software_house,
+            v.slug
         FROM videogame v
         JOIN videogame_genre vg ON v.id = vg.videogame_id
         WHERE vg.genre_id IN (
@@ -144,7 +148,8 @@ const relatedProducts = (req, res) => {
         // Aggiungi il percorso completo dell'immagine a ogni prodotto correlato
         const products = results.map(product => ({
             ...product,
-            image: `${req.imagePath}/${product.image}`
+            image: `${req.imagePath}/${product.image}`,
+            slug: product.slug  // aggiungo lo slug
         }));
 
         res.json({
@@ -156,20 +161,20 @@ const relatedProducts = (req, res) => {
 
 // Funzione per ottenere i dettagli di un singolo videogioco
 const show = (req, res) => {
-    // Estraiamo l'ID dalla richiesta
-    const { id } = req.params
+    const { slug } = req.params;
 
-    // Query per ottenere il gioco con i suoi generi
+    // Query per ottenere il gioco con i suoi generi filtrando per slug
     const recordSql = `
         SELECT v.*, GROUP_CONCAT(g.name) AS genres
         FROM videogame v
         LEFT JOIN videogame_genre vg ON v.id = vg.videogame_id
         LEFT JOIN genre g ON vg.genre_id = g.id
-        WHERE v.id = ?
+        WHERE v.slug = ?
         GROUP BY v.id
-    `
+    `;
+
     // Eseguiamo la query passando l'ID come parametro
-    connection.query(recordSql, [id], (err, recordResult) => {
+    connection.query(recordSql, [slug], (err, recordResult) => {
         // In caso di errore, restituiamo un errore 500
         if (err) return res.status(500).json({ error: "Database Query Failed:" + err });
 

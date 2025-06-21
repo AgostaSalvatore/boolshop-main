@@ -5,7 +5,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 // Componente che mostra le informazioni principali del prodotto e i pulsanti azione
-const ProductInfo = ({ title, genre, price, release_year, software_house, discount, product, quantity, id, initialQuantity }) => {
+const ProductInfo = ({ title, genre, price, release_year, software_house, discount, product, quantity, slug, initialQuantity }) => {
   // Recupera la funzione per aggiungere al carrello dal context
   const { addToCart } = useCart();
   const { addToWishlist, isInWishlist } = useWishlist(); // <-- usa i metodi della wishlist
@@ -30,7 +30,7 @@ const ProductInfo = ({ title, genre, price, release_year, software_house, discou
   };
 
   const handleQuantity = () => {
-    axios.patch(`http://127.0.0.1:3000/api/boolshop/${id}`).then(() => {
+    axios.patch(`http://127.0.0.1:3000/api/boolshop/game/${slug}`).then(() => {
       setCurrentQuantity(prevQuantity => Math.max(prevQuantity - 1, 0));
     }).catch((err) => console.log(err));
   }

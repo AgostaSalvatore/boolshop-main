@@ -82,7 +82,7 @@ const RelatedProducts = ({ currentProductId }) => {
                             <p className="product-publisher">{product.software_house}</p>
                             <button 
                                 className="view-details-btn"
-                                onClick={() => window.location.href = `/${product.id}`}
+                                onClick={() => window.location.href = `/${product.slug}`}
                             >
                                 Vedi Dettagli
                             </button>
