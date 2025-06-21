@@ -7,6 +7,9 @@ const CatalogPage = () => {
     const [filteredGames, setFilteredGames] = useState([]);
     const [loading, setLoading] = useState(true);
     const [viewMode, setViewMode] = useState('grid'); // Stato per la modalità di visualizzazione
+    const [filterVisible, setFilterVisible] = useState(false); // Stato per la visibilità del filtro
+    const [selectedGenres, setSelectedGenres] = useState([]); // Stato per i generi selezionati
+    const [genres, setGenres] = useState([]); // Stato per i generi disponibili
     const navigate = useNavigate(); // Hook per la navigazione
     const location = useLocation(); // Hook per accedere ai parametri dell'URL
 
@@ -15,6 +18,7 @@ const CatalogPage = () => {
         axios.get('http://127.0.0.1:3000/api/boolshop')
             .then((response) => {
                 setGames(response.data); // Salva i dati dei giochi nello stato
+                setFilteredGames(response.data); // Mostra tutti i giochi inizialmente
                 setLoading(false); // Imposta il caricamento su false
             })
             .catch((error) => {
