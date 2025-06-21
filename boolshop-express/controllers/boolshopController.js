@@ -39,6 +39,37 @@ const index = (req, res) => {
     })
 }
 
+// Funzione per ottenere i videogiochi filtrati per genere
+const filterByGenre = (req, res) => {
+    const genre = req.query.genre; // Ottieni il genere dai parametri di query
+
+    let sql = `
+    SELECT videogame.*, GROUP_CONCAT(genre.name SEPARATOR ', ') AS genres
+    FROM videogame
+    JOIN videogame_genre ON videogame.id = videogame_genre.videogame_id
+    JOIN genre ON videogame_genre.genre_id = genre.id
+    `;
+    const params = [];
+
+    if (genre) {
+        sql += `WHERE genre.name = ? `;
+        params.push(genre);
+    }
+
+    sql += 'GROUP BY videogame.id ORDER BY videogame.title ASC';
+
+    // Eseguiamo la query per filtrare i videogiochi per genere
+    connection.query(sql, params, (err, gamesResult) => {
+        if (err) {
+            console.error("Errore nella query:", err);
+            return res.status(500).json({ error: "Database Query Failed:" + err });
+        }
+
+        // Restituiamo i videogiochi filtrati come JSON
+        res.json(gamesResult);
+    });
+};
+
 // Funzione per ordinare i videogiochi per prezzo dal più alto al più basso
 const orderByPriceDesc = (req, res) => {
     // Eseguiamo la query con ordinamento per prezzo discendente
@@ -182,6 +213,7 @@ const update = (req, res) => {
 
 module.exports = {
     index,
+    filterByGenre,
     show,
     orderByPriceDesc,
     orderByPriceAsc,

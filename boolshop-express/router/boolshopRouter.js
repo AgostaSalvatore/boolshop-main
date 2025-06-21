@@ -8,6 +8,8 @@ const boolshopController = require("../controllers/boolshopController");
 // Definiamo le rotte dell'API
 // Rotta per ottenere tutti i videogiochi
 router.get("/", boolshopController.index);
+// Rotta per ottenere i videogiochi filtrati per genere
+router.get("/catalog", boolshopController.filterByGenre);
 // Rotta per ottenere i videogiochi ordinati per prezzo decrescente
 router.get("/price-desc", boolshopController.orderByPriceDesc);
 // Rotta per ottenere i videogiochi ordinati per prezzo crescente
