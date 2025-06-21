@@ -64,7 +64,13 @@ const filterByGenre = (req, res) => {
             return res.status(500).json({ error: "Database Query Failed:" + err });
         }
 
-        res.json(gamesResult); // Restituisci i videogiochi filtrati come JSON
+        // Aggiungiamo il percorso completo dell'immagine a ogni gioco
+        const games = gamesResult.map(game => ({
+            ...game,
+            image: `${req.imagePath}/${game.image}`
+        }));
+        
+        res.json(games); // Restituisci i videogiochi filtrati come JSON
     });
 };
 
