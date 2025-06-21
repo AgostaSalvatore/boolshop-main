@@ -35,9 +35,10 @@ const CatalogPage = () => {
             const searchTerm = searchParams.get('search');
 
             if (searchTerm) {
-                // Filtra i giochi in base al termine di ricerca
+                // Filtra i giochi in base al termine di ricerca (titolo o software_house)
                 const filtered = games.filter(game =>
-                    game.title.toLowerCase().includes(searchTerm.toLowerCase())
+                    game.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                    (game.software_house && game.software_house.toLowerCase().includes(searchTerm.toLowerCase()))
                 );
                 setFilteredGames(filtered);
             } else {
