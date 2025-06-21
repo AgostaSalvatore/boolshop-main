@@ -14,18 +14,62 @@ const CatalogPage = () => {
     const navigate = useNavigate(); // Hook per la navigazione
     const location = useLocation(); // Hook per accedere ai parametri dell'URL
 
-    useEffect(() => {
-        // Recupera i dati dalla tua API
+    // Funzione per caricare i generi disponibili
+    const loadGenres = () => {
         axios.get('http://127.0.0.1:3000/api/boolshop')
             .then((response) => {
-                setGames(response.data); // Salva i dati dei giochi nello stato
-                setFilteredGames(response.data); // Mostra tutti i giochi inizialmente
-                setLoading(false); // Imposta il caricamento su false
+                // Estrai tutti i generi unici dai giochi
+                const allGenres = new Set();
+                
+                response.data.forEach(game => {
+                    if (game.genres) {
+                        const genresStr = String(game.genres);
+                        const genresList = genresStr.split(',');
+                        
+                        genresList.forEach(genre => {
+                            const trimmedGenre = genre.trim();
+                            if (trimmedGenre) {
+                                allGenres.add(trimmedGenre);
+                            }
+                        });
+                    }
+                });
+                
+                setGenres(Array.from(allGenres).sort());
+            })
+            .catch((error) => {
+                console.error('Errore nel recupero dei generi:', error);
+            });
+    };
+    
+    // Funzione per caricare i giochi (con o senza filtro per genere)
+    const loadGames = (genreFilter = null) => {
+        setLoading(true);
+        
+        // Costruisci l'URL in base al filtro
+        let url = 'http://127.0.0.1:3000/api/boolshop';
+        if (genreFilter) {
+            url = `http://127.0.0.1:3000/api/boolshop/catalog?genre=${genreFilter}`;
+        }
+        
+        axios.get(url)
+            .then((response) => {
+                setGames(response.data);
+                setFilteredGames(response.data);
+                setLoading(false);
             })
             .catch((error) => {
                 console.error('Errore nel recupero dei dati:', error);
                 setLoading(false);
             });
+    };
+    
+    useEffect(() => {
+        // Carica i generi all'avvio
+        loadGenres();
+        
+        // Carica tutti i giochi all'avvio
+        loadGames();
     }, []);
 
     // Effetto per filtrare i giochi in base al parametro di ricerca nell'URL
@@ -58,6 +102,18 @@ const CatalogPage = () => {
         setTimeout(() => setShowPopup(false), 2000);  // dopo 2 secondi nasconde il popup
     };
 
+    // Gestisce il cambiamento del genere selezionato
+    const handleGenreChange = (e) => {
+        const selectedGenre = e.target.value;
+        
+        if (selectedGenre === "") {
+            // Se è selezionato "Tutti i generi", carica tutti i giochi
+            loadGames();
+        } else {
+            // Carica i giochi filtrati per genere dal backend
+            loadGames(selectedGenre);
+        }
+    };
 
     return (
         <div className="container mt-5">
@@ -76,6 +132,20 @@ const CatalogPage = () => {
                             </button>
                         </p>
                     )}
+                    
+                    {/* Filtro per genere */}
+                    <div className="mt-3">
+                        <select 
+                            className="form-select" 
+                            onChange={handleGenreChange}
+                            aria-label="Filtra per genere"
+                        >
+                            <option value="">Tutti i generi</option>
+                            {genres.map((genre, index) => (
+                                <option key={index} value={genre}>{genre}</option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
                 {/* Pulsante per cambiare modalità */}
                 <div>
