@@ -38,11 +38,11 @@ const DiscountedGamesRow = ({ games, }) => {
         <div className="discounted-games-container d-flex justify-content-center">
             {games.slice(0, 5).map((game) => ( // Genera solo 5 card randomiche
                 <div key={game.id} className="card me-3" style={{ width: '200px' }}>
-                    <Link to={`/giochi/${game.slug}`}>
-                        <img src={game.image} className="card-img-top" alt={game.title} />
+                    <Link to={`/${game.slug}`}>
+                        <img src={game.image} className="card-img-top" alt={game.title || game.name} />
                     </Link>
                     <div className="card-body">
-                        <h5 className="card-title">{game.title}</h5>
+                        <h5 className="card-title">{game.title || game.name}</h5>
                         <p className="card-text">Prezzo: €{game.price}</p>
                         <p className="card-text text-danger">Sconto: {game.discount}%</p>
                         <button onClick={() => { handleAddToCart(game) }} type="button" className="btn btn-danger">Aggiungi al carrello</button>
