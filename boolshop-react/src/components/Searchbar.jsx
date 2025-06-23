@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useRef, } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 // Componente barra di ricerca per videogiochi
@@ -16,7 +16,37 @@ const Searchbar = () => {
   const dropdownRef = useRef(null);
   // Riferimenti agli elementi della lista, usati per gestire il focus o lo scroll sugli item
   const itemRefs = useRef([]);
+  // Stato per rilevare la pagina corrente
+  const location = useLocation();
+  // Ref per il contenitore principale del componente, utile per gestire eventi o misure relative all'intero wrapper
+  const wrapperRef = useRef(null);
+
   
+  
+  // Effetto che aggiunge un listener per chiudere il dropdown quando si clicca fuori dalla searchbar
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setResults([]);
+        setHighlightedIndex(-1);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Effetto per svuotare i risultati al cambio pagina
+  useEffect(() => {
+    // Quando cambia il percorso URL, resetta la ricerca
+    setResults([]);
+    setHighlightedIndex(-1);
+    setSearchText('');
+  }, [location.pathname, location.search]);
+
   // Allineo il numero di riferimenti agli item con la lunghezza dei risultati
   useEffect(() => {
     itemRefs.current = itemRefs.current.slice(0, results.length);
@@ -120,7 +150,7 @@ const Searchbar = () => {
 
 
   return (
-    <div className="searchbar-wrapper">
+    <div className="searchbar-wrapper" ref={wrapperRef}>
       <div className="searchbar-input-container d-flex">
         {/* Input di ricerca */}
         <input
@@ -153,6 +183,8 @@ const Searchbar = () => {
               className={`searchbar-item ${highlightedIndex === index ? 'active' : ''}`}
               ref={(el) => (itemRefs.current[index] = el)}
               onClick={() => handleItemClick(videogame.slug)}
+              onMouseEnter={() => setHighlightedIndex(index)}
+              onMouseLeave={() => setHighlightedIndex(-1)}
               style={{ cursor: 'pointer' }}
             >
               {/* Titolo del videogioco */}
