@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { useCart } from '../context/CartContext';
+import CartSideBar from '../components/CartSideBar';
 
 const CatalogPage = () => {
     const [games, setGames] = useState([]);
@@ -14,6 +15,8 @@ const CatalogPage = () => {
     const [softwareHouses, setSoftwareHouses] = useState([]); // Stato per le software house disponibili
     const navigate = useNavigate(); // Hook per la navigazione
     const location = useLocation(); // Hook per accedere ai parametri dell'URL
+    const [isCartOpen, setIsCartOpen] = useState(false); //Stato per mostra la sidebar del carrello
+
 
     // Funzione per caricare i generi disponibili
     const loadGenres = () => {
@@ -156,6 +159,7 @@ const CatalogPage = () => {
     const handleAddToCart = (game) => {
         addToCart(game) // Aggiunge il prodotto al carrello
         setShowPopup(true) //Attiva il metodo
+        setIsCartOpen(true); // Apre la sibebar del carrello
 
         setTimeout(() => setShowPopup(false), 2000);  // dopo 2 secondi nasconde il popup
     };
@@ -187,144 +191,149 @@ const CatalogPage = () => {
     };
 
     return (
-        <div className="container mt-5">
-            <div className="d-flex justify-content-between align-items-center mb-4">
-                <div>
-                    <h1>Catalogo Giochi</h1>
-                    {/* Mostra il termine di ricerca se presente */}
-                    {new URLSearchParams(location.search).get('search') && (
-                        <p className="text-muted">
-                            Risultati per: "{new URLSearchParams(location.search).get('search')}"
-                            <button
-                                className="btn btn-sm btn-outline-secondary ms-2"
-                                onClick={() => navigate('/catalog')}
+        <>
+
+            <CartSideBar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
+            <div className="container mt-5">
+                <div className="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h1>Catalogo Giochi</h1>
+                        {/* Mostra il termine di ricerca se presente */}
+                        {new URLSearchParams(location.search).get('search') && (
+                            <p className="text-muted">
+                                Risultati per: "{new URLSearchParams(location.search).get('search')}"
+                                <button
+                                    className="btn btn-sm btn-outline-secondary ms-2"
+                                    onClick={() => navigate('/catalog')}
+                                >
+                                    Mostra tutti
+                                </button>
+                            </p>
+                        )}
+
+                        {/* Filtro per genere */}
+                        <div className="mt-3">
+                            <select
+                                className="form-select mb-2"
+                                onChange={handleGenreChange}
+                                value={selectedGenre}
+                                aria-label="Filtra per genere"
                             >
-                                Mostra tutti
-                            </button>
-                        </p>
-                    )}
-
-                    {/* Filtro per genere */}
-                    <div className="mt-3">
-                        <select
-                            className="form-select mb-2"
-                            onChange={handleGenreChange}
-                            value={selectedGenre}
-                            aria-label="Filtra per genere"
-                        >
-                            <option value="tutti">Tutti i generi</option>
-                            {genres.map((genre, index) => (
-                                <option key={index} value={genre}>{genre}</option>
-                            ))}
-                        </select>
-                    </div>
-
-                    {/* Filtro per software house */}
-                    <div className="mt-2">
-                        <select
-                            className="form-select"
-                            onChange={handleSoftwareHouseChange}
-                            value={selectedSoftwareHouse}
-                            aria-label="Filtra per software house"
-                        >
-                            <option value="tutte">Tutte le software house</option>
-                            {softwareHouses.map((softwareHouse, index) => (
-                                <option key={index} value={softwareHouse}>{softwareHouse}</option>
-                            ))}
-                        </select>
-                    </div>
-                </div>
-                {/* Pulsante per cambiare modalità */}
-                <div>
-                    <button
-                        className={`btn btn-outline-primary me-2 ${viewMode === 'list' ? 'active' : ''}`}
-                        onClick={() => setViewMode('list')}
-                    >
-                        Lista
-                    </button>
-                    <button
-                        className={`btn btn-outline-primary ${viewMode === 'grid' ? 'active' : ''}`}
-                        onClick={() => setViewMode('grid')}
-                    >
-                        Griglia
-                    </button>
-                </div>
-            </div>
-            {loading ? (
-                <p className="text-center">Caricamento giochi...</p>
-            ) : filteredGames.length === 0 ? (
-                <div className="alert alert-info text-center" role="alert">
-                    <h4>Nessun gioco trovato</h4>
-                    <p>Non ci sono giochi che corrispondono ai filtri selezionati.</p>
-                </div>
-            ) : (
-                <div className="row">
-                    {showPopup && (
-                        <div className="position-fixed top-0 end-0 p-3" style={{ zIndex: 1050 }}>
-                            <div className="toast show align-items-center text-white bg-success border-0">
-                                <div className="d-flex">
-                                    <div className="toast-body">
-                                        ✅ Articolo aggiunto al carrello!
-                                    </div>
-                                    <button
-                                        type="button"
-                                        className="btn-close btn-close-white me-2 m-auto"
-                                        onClick={() => setShowPopup(false)}
-                                    ></button>
-                                </div>
-                            </div>
+                                <option value="tutti">Tutti i generi</option>
+                                {genres.map((genre, index) => (
+                                    <option key={index} value={genre}>{genre}</option>
+                                ))}
+                            </select>
                         </div>
-                    )}
-                    {viewMode === 'grid' ? (
-                        // Modalità griglia
-                        filteredGames.map((game) => (
-                            <div key={game.id} className="col-md-4 mb-4">
-                                <div className="card">
-                                    <img src={game.image} className="card-img-top" alt={game.title} />
-                                    <div className="card-body">
-                                        <h5 className="card-title">{game.title}</h5>
-                                        <p className="card-text">Prezzo: €{game.price}</p>
+
+                        {/* Filtro per software house */}
+                        <div className="mt-2">
+                            <select
+                                className="form-select"
+                                onChange={handleSoftwareHouseChange}
+                                value={selectedSoftwareHouse}
+                                aria-label="Filtra per software house"
+                            >
+                                <option value="tutte">Tutte le software house</option>
+                                {softwareHouses.map((softwareHouse, index) => (
+                                    <option key={index} value={softwareHouse}>{softwareHouse}</option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+                    {/* Pulsante per cambiare modalità */}
+                    <div>
+                        <button
+                            className={`btn btn-outline-primary me-2 ${viewMode === 'list' ? 'active' : ''}`}
+                            onClick={() => setViewMode('list')}
+                        >
+                            Lista
+                        </button>
+                        <button
+                            className={`btn btn-outline-primary ${viewMode === 'grid' ? 'active' : ''}`}
+                            onClick={() => setViewMode('grid')}
+                        >
+                            Griglia
+                        </button>
+                    </div>
+                </div>
+                {loading ? (
+                    <p className="text-center">Caricamento giochi...</p>
+                ) : filteredGames.length === 0 ? (
+                    <div className="alert alert-info text-center" role="alert">
+                        <h4>Nessun gioco trovato</h4>
+                        <p>Non ci sono giochi che corrispondono ai filtri selezionati.</p>
+                    </div>
+                ) : (
+                    <div className="row">
+                        {showPopup && (
+                            <div className="position-fixed top-0 end-0 p-3" style={{ zIndex: 1050 }}>
+                                <div className="toast show align-items-center text-white bg-success border-0">
+                                    <div className="d-flex">
+                                        <div className="toast-body">
+                                            ✅ Articolo aggiunto al carrello!
+                                        </div>
                                         <button
-                                            className="btn btn-primary"
-                                            onClick={() => navigate(`/${game.slug}`)} // Naviga alla pagina di dettaglio con slug
-                                        >
-                                            Dettagli
-                                        </button>
-                                        <button onClick={() => { handleAddToCart(game) }} type="button" className="btn btn-danger mt-2">Aggiungi al carrello</button>
+                                            type="button"
+                                            className="btn-close btn-close-white me-2 m-auto"
+                                            onClick={() => setShowPopup(false)}
+                                        ></button>
                                     </div>
                                 </div>
                             </div>
-                        ))
-                    ) : (
-                        // Modalità lista
-                        filteredGames.map((game) => (
-                            <div key={game.id} className="col-12 mb-4">
-                                <div className="card">
-                                    <div className="row g-0">
-                                        <div className="col-md-4">
-                                            <img src={game.image} className="img-fluid rounded-start" alt={game.title} />
+                        )}
+                        {viewMode === 'grid' ? (
+                            // Modalità griglia
+                            filteredGames.map((game) => (
+                                <div key={game.id} className="col-md-4 mb-4">
+                                    <div className="card">
+                                        <img src={game.image} className="card-img-top" alt={game.title} />
+                                        <div className="card-body">
+                                            <h5 className="card-title">{game.title}</h5>
+                                            <p className="card-text">Prezzo: €{game.price}</p>
+                                            <button
+                                                className="btn btn-primary"
+                                                onClick={() => navigate(`/${game.slug}`)} // Naviga alla pagina di dettaglio con slug
+                                            >
+                                                Dettagli
+                                            </button>
+                                            <button onClick={() => { handleAddToCart(game) }} type="button" className="btn btn-danger mt-2">Aggiungi al carrello</button>
                                         </div>
-                                        <div className="col-md-8">
-                                            <div className="card-body">
-                                                <h5 className="card-title">{game.title}</h5>
-                                                <p className="card-text">Prezzo: €{game.price}</p>
-                                                <button
-                                                    className="btn btn-primary"
-                                                    onClick={() => navigate(`/${game.id}`)} // Naviga alla pagina di dettaglio
-                                                >
-                                                    Dettagli
-                                                </button>
-                                                <button onClick={() => { handleAddToCart(game) }} type="button" className="btn btn-danger mt-2">Aggiungi al carrello</button>
+                                    </div>
+                                </div>
+                            ))
+                        ) : (
+                            // Modalità lista
+                            filteredGames.map((game) => (
+                                <div key={game.id} className="col-12 mb-4">
+                                    <div className="card">
+                                        <div className="row g-0">
+                                            <div className="col-md-4">
+                                                <img src={game.image} className="img-fluid rounded-start" alt={game.title} />
+                                            </div>
+                                            <div className="col-md-8">
+                                                <div className="card-body">
+                                                    <h5 className="card-title">{game.title}</h5>
+                                                    <p className="card-text">Prezzo: €{game.price}</p>
+                                                    <button
+                                                        className="btn btn-primary"
+                                                        onClick={() => navigate(`/${game.id}`)} // Naviga alla pagina di dettaglio
+                                                    >
+                                                        Dettagli
+                                                    </button>
+                                                    <button onClick={() => { handleAddToCart(game) }} type="button" className="btn btn-danger mt-2">Aggiungi al carrello</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))
-                    )}
-                </div>
-            )}
-        </div>
+                            ))
+                        )}
+                    </div>
+                )}
+            </div>
+
+        </>
     );
 };
 

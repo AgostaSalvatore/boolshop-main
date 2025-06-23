@@ -2,14 +2,17 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext';
 import { useState } from 'react';
+import CartSideBar from './CartSideBar';
 
 const DiscountedGamesRow = ({ games, }) => {
     const { addToCart } = useCart();
     const [showPopup, setShowPopup] = useState(false)
+    const [isCartOpen, setIsCartOpen] = useState(false)
 
     const handleAddToCart = (game) => {
         addToCart(game) // Aggiunge il prodotto al carrello
         setShowPopup(true) //Attiva il metodo
+        setIsCartOpen(true)
 
         setTimeout(() => setShowPopup(false), 2000);  // dopo 2 secondi nasconde il popup
     };
@@ -46,6 +49,7 @@ const DiscountedGamesRow = ({ games, }) => {
                     </div>
                 </div>
             ))}
+            <CartSideBar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
         </div>
     </>
     );
