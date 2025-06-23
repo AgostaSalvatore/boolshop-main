@@ -114,11 +114,13 @@ const Cart = () => {
               </button>
             ) : (
               <NavLink to={"/checkout"}>
-                <button onClick={() => {
-                  cartItems.forEach(item => {
-                    handleQuantity(item.id);
-                  });
-                }} type="button" className="btn checkout-button btn-primary">
+                <button
+                  disabled={Object.values(quantities).some(qty => qty <= 0)}
+                  onClick={() => {
+                    cartItems.forEach(item => {
+                      handleQuantity(item.id);
+                    });
+                  }} type="button" className="btn checkout-button btn-primary">
                   Vai al pagamento
                 </button>
               </NavLink>
