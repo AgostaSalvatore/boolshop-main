@@ -3,6 +3,7 @@ import { useCart } from '../context/CartContext'
 import { useWishlist } from '../context/WishlistContext';
 import { useState } from 'react';
 import axios from 'axios';
+import CartSideBar from './CartSideBar';
 
 // Componente che mostra le informazioni principali del prodotto e i pulsanti azione
 const ProductInfo = ({ title, genre, price, release_year, software_house, discount, product, quantity, slug, initialQuantity }) => {
@@ -12,11 +13,13 @@ const ProductInfo = ({ title, genre, price, release_year, software_house, discou
   const [showPopup, setShowPopup] = useState(false) //Uso la variabile di stato per mostrare un popup tot secondi dopo click
   const [wishPopup, setWishPopup] = useState(false); //Uso la variabile di stato per mostrare un popup tot secondi dopo click
   const [CurrentQuantity, setCurrentQuantity] = useState(initialQuantity); // Stato per la quantità disponibile
+  const [showCartSidebar, setShowCartSidebar] = useState(false); // Stato aggiuntivo per sidebar
 
   // Gestore per il click su "Aggiungi al carrello"
   const handleAddToCart = () => {
     addToCart(product) // Aggiunge il prodotto al carrello
     setShowPopup(true) //Attiva il metodo
+    setShowCartSidebar(true) //mostra la tendina laterale
 
     setTimeout(() => setShowPopup(false), 2000);  // dopo 2 secondi nasconde il popup
   };
@@ -113,6 +116,7 @@ const ProductInfo = ({ title, genre, price, release_year, software_house, discou
           <strong>Copie disponibili: </strong> {CurrentQuantity}
         </div>
       </div>
+      <CartSideBar isOpen={showCartSidebar} onClose={() => setShowCartSidebar(false)} />
     </>
   )
 }
