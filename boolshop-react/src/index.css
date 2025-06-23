@@ -148,6 +148,11 @@ header .btn-outline-primary:focus-visible {
   background-color: #f8f9fa;
 }
 
+.searchbar-item.active {
+  background-color: #007bff;  
+  color: white;
+}
+
 .price {
   color: #0d6efd;
 }
