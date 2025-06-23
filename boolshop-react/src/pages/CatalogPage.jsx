@@ -16,6 +16,12 @@ const CatalogPage = () => {
     const navigate = useNavigate(); // Hook per la navigazione
     const location = useLocation(); // Hook per accedere ai parametri dell'URL
     const [isCartOpen, setIsCartOpen] = useState(false); //Stato per mostra la sidebar del carrello
+    const [currentPage, setCurrentPage] = useState(1);
+    const gamesPerPage = 9;
+    const indexOfLastGame = currentPage * gamesPerPage; // Calcolo degli indici
+    const indexOfFirstGame = indexOfLastGame - gamesPerPage;
+    const currentGames = filteredGames.slice(indexOfFirstGame, indexOfLastGame);
+
 
 
     // Funzione per caricare i generi disponibili
@@ -284,7 +290,7 @@ const CatalogPage = () => {
                         )}
                         {viewMode === 'grid' ? (
                             // Modalità griglia
-                            filteredGames.map((game) => (
+                            currentGames.map((game) => (
                                 <div key={game.id} className="col-md-4 mb-4">
                                     <div className="card">
                                         <img src={game.image} className="card-img-top" alt={game.title} />
@@ -304,7 +310,7 @@ const CatalogPage = () => {
                             ))
                         ) : (
                             // Modalità lista
-                            filteredGames.map((game) => (
+                            currentGames.map((game) => (
                                 <div key={game.id} className="col-12 mb-4">
                                     <div className="card">
                                         <div className="row g-0">
@@ -332,7 +338,23 @@ const CatalogPage = () => {
                     </div>
                 )}
             </div>
-
+            <nav>
+                <ul className="pagination justify-content-center"> 
+                    {Array.from({ length: Math.ceil(filteredGames.length / gamesPerPage) }).map((_, index) => (
+                        <li
+                            key={index}
+                            className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}
+                        >
+                            <button
+                                onClick={() => setCurrentPage(index + 1)}
+                                className="page-link"
+                            >
+                                {index + 1}
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
         </>
     );
 };
