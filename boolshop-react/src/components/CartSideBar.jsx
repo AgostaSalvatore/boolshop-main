@@ -3,16 +3,19 @@ import { useCart } from '../context/CartContext'
 import { NavLink } from 'react-router-dom'
 
 const CartSideBar = ({ isOpen, onClose }) => {
-    const { cartItems, removeFromCart } = useCart();
-    const productsTotal = cartItems.reduce((sum, item) => sum + parseFloat(item.price || 0), 0);
+    const { cartItems, removeFromCart, increaseQuantity, decreaseQuantity } = useCart();
+    const productsTotal = cartItems.reduce((sum, item) => sum + (parseFloat(item.price || 0) * item.quantity), 0);
+
     return (
         <div
             className={`cart-floating-sidebar ${isOpen ? 'show' : ''}`}
             style={{
                 position: 'fixed',
                 top: '60px',
-                right: isOpen ? '30px' : '-400px',
-                width: '300px',
+                right: isOpen ? '10px' : '-400px',
+                width: '350px',
+                maxHeight: '80vh',
+                overflowY: 'auto',
                 backgroundColor: '#000',
                 color: '#FFA500',
                 boxShadow: '0 8px 24px rgba(255,165,0,0.4)',
@@ -36,8 +39,20 @@ const CartSideBar = ({ isOpen, onClose }) => {
                             <img src={item.image} alt={item.title} style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 8 }} />
                             <div>
                                 <p className="mb-0 fw-semibold">{item.title}</p>
-                                <small>{item.price} €</small>
+                                <small>{item.price} € x {item.quantity} = {(item.price * item.quantity).toFixed(2)} €</small>
                             </div>
+                            <button
+                                className="btn btn-sm btn-outline-success ms-auto"
+                                onClick={() => increaseQuantity(item.id)}
+                            >
+                                <i className="bi bi-plus"></i>
+                            </button>
+                            <button
+                                className="btn btn-sm btn-outline-warning ms-auto"
+                                onClick={() => decreaseQuantity(item.id)}
+                            >
+                                <i className="bi bi-dash"></i>
+                            </button>
                             <button
                                 className="btn btn-sm btn-outline-danger ms-auto"
                                 onClick={() => removeFromCart(item.id)}

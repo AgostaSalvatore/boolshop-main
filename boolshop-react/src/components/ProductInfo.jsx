@@ -8,7 +8,7 @@ import CartSideBar from './CartSideBar';
 // Componente che mostra le informazioni principali del prodotto e i pulsanti azione
 const ProductInfo = ({ title, genre, price, release_year, software_house, discount, product, quantity, slug, initialQuantity }) => {
   // Recupera la funzione per aggiungere al carrello dal context
-  const { addToCart } = useCart();
+  const { addToCart, cartItems } = useCart();
   const { addToWishlist, isInWishlist } = useWishlist(); // <-- usa i metodi della wishlist
   const [showPopup, setShowPopup] = useState(false) //Uso la variabile di stato per mostrare un popup tot secondi dopo click
   const [wishPopup, setWishPopup] = useState(false); //Uso la variabile di stato per mostrare un popup tot secondi dopo click
@@ -110,7 +110,7 @@ const ProductInfo = ({ title, genre, price, release_year, software_house, discou
           <strong>Copie disponibili: </strong> {CurrentQuantity}
         </div>
       </div>
-      <CartSideBar isOpen={showCartSidebar} onClose={() => setShowCartSidebar(false)} />
+      <CartSideBar isOpen={showCartSidebar} onClose={() => setShowCartSidebar(false)} cartItems={cartItems} />
     </>
   )
 }

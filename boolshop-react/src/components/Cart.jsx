@@ -7,9 +7,9 @@ import axios from 'axios';
 // Componente che mostra il carrello dell'utente
 const Cart = () => {
   // Recupera gli articoli presenti nel carrello dal context //  Inoltre possibilità di rimuovere gli articoli presenti nel carrello
-  const { cartItems, removeFromCart } = useCart();
+  const { cartItems, removeFromCart, decreaseQuantity, increaseQuantity } = useCart();
 
-  const productsTotal = cartItems.reduce((sum, item) => sum + parseFloat(item.price || 0), 0); // itera l'array e restituisce il costo finale
+  const productsTotal = cartItems.reduce((sum, item) => sum + (parseFloat(item.price || 0) * item.quantity), 0);  // itera l'array e restituisce il costo finale
   const hasFreeShipping = productsTotal >= 60; // spedizione gratis sopra i 60€
   const shippingCost = hasFreeShipping ? 0 : 4.99; // per i costi di spedizione, 4.99€ di spedizione al di sotto di 60€
   const finalTotal = productsTotal + shippingCost; // costo finale
@@ -68,16 +68,35 @@ const Cart = () => {
                   {/* Dettagli del prodotto: titolo e prezzo */}
                   <div>
                     <h5 className="mb-1">{item.title}</h5>
-                    <p className="mb-0 text-muted">{item.price}€</p>
+                    <p className="mb-0 text-muted">
+                      {item.price}€
+                    </p>
+
                   </div>
+
                   <div className="ms-auto d-flex align-items-center gap-2">
                     {/* Pulsante Rimuovi dal carrello */}
+                    <button
+                      className="btn btn-outline-warning"
+                      onClick={() => decreaseQuantity(item.id)}
+                    >
+                      <i className="bi bi-dash"></i>
+                    </button>
+                    <span className="px-2">{item.quantity}</span> {/* mostra la quantità */}
+
+                    <button
+                      className="btn btn-outline-success"
+                      onClick={() => increaseQuantity(item.id)}
+                    >
+                      <i className="bi bi-plus"></i>
+                    </button>
                     <button
                       className="btn btn-outline-danger"
                       onClick={() => removeFromCart(item.id)}
                     >
                       <i className="bi bi-trash"></i>
                     </button>
+
                   </div>
                 </li>
               ))}
