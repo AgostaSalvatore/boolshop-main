@@ -32,12 +32,6 @@ const ProductInfo = ({ title, genre, price, release_year, software_house, discou
     }
   };
 
-  const handleQuantity = () => {
-    axios.patch(`http://127.0.0.1:3000/api/boolshop/game/${slug}`).then(() => {
-      setCurrentQuantity(prevQuantity => Math.max(prevQuantity - 1, 0));
-    }).catch((err) => console.log(err));
-  }
-
   return (
     <>
       {/* PopUp per il carrello */}
@@ -80,7 +74,7 @@ const ProductInfo = ({ title, genre, price, release_year, software_house, discou
         </button>
         <button className="btn btn-outline-primary"
           disabled={CurrentQuantity === 0}
-          onClick={() => { handleAddToCart(), handleQuantity() }}>
+          onClick={() => { handleAddToCart() }}>
           AGGIUNGI AL CARRELLO
         </button>
       </div>

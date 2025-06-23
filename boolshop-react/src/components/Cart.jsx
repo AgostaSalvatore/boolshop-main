@@ -1,6 +1,8 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
 import { useCart } from '../context/CartContext'
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 // Componente che mostra il carrello dell'utente
 const Cart = () => {
@@ -11,6 +13,26 @@ const Cart = () => {
   const hasFreeShipping = productsTotal >= 60; // spedizione gratis sopra i 60€
   const shippingCost = hasFreeShipping ? 0 : 4.99; // per i costi di spedizione, 4.99€ di spedizione al di sotto di 60€
   const finalTotal = productsTotal + shippingCost; // costo finale
+  const [quantities, setQuantities] = useState({});
+
+  useEffect(() => {
+    const initialQuantity = {};
+    cartItems.forEach(item => {
+      initialQuantity[item.id] = item.quantity || 1; // Impostiamo la quantità iniziale per ogni prodotto
+    });
+    setQuantities(initialQuantity);
+  }, [cartItems])
+
+  const handleQuantity = (id) => {
+    axios.patch(`http://127.0.0.1:3000/api/boolShop/${id}`)
+      .then(() => {
+        setQuantities((prev) => ({
+          ...prev,
+          [id]: Math.max((prev[id] ?? 1) - 1, 0)
+        }));
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="container py-5">
@@ -92,7 +114,11 @@ const Cart = () => {
               </button>
             ) : (
               <NavLink to={"/checkout"}>
-                <button type="button" className="btn checkout-button btn-primary">
+                <button onClick={() => {
+                  cartItems.forEach(item => {
+                    handleQuantity(item.id);
+                  });
+                }} type="button" className="btn checkout-button btn-primary">
                   Vai al pagamento
                 </button>
               </NavLink>
