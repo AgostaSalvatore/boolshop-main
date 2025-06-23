@@ -39,19 +39,20 @@ const CartSideBar = ({ isOpen, onClose }) => {
                             <img src={item.image} alt={item.title} style={{ width: 60, height: 60, objectFit: 'cover', borderRadius: 8 }} />
                             <div>
                                 <p className="mb-0 fw-semibold">{item.title}</p>
-                                <small>{item.price} € x {item.quantity} = {(item.price * item.quantity).toFixed(2)} €</small>
+                                <small>{item.price} €</small>
                             </div>
-                            <button
-                                className="btn btn-sm btn-outline-success ms-auto"
-                                onClick={() => increaseQuantity(item.id)}
-                            >
-                                <i className="bi bi-plus"></i>
-                            </button>
                             <button
                                 className="btn btn-sm btn-outline-warning ms-auto"
                                 onClick={() => decreaseQuantity(item.id)}
                             >
                                 <i className="bi bi-dash"></i>
+                            </button>
+                            <span className="px-2">{item.quantity}</span>
+                            <button
+                                className="btn btn-sm btn-outline-success ms-auto"
+                                onClick={() => increaseQuantity(item.id)}
+                            >
+                                <i className="bi bi-plus"></i>
                             </button>
                             <button
                                 className="btn btn-sm btn-outline-danger ms-auto"
