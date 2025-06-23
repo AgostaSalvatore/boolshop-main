@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -12,7 +12,36 @@ const Searchbar = () => {
   const navigate = useNavigate();
   // Indice dell'elemento attualmente evidenziato nel menu a tendina (-1 significa nessuna selezione)
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
+  // Riferimento al contenitore del dropdown, utile per rilevare clic fuori o per il posizionamento
+  const dropdownRef = useRef(null);
+  // Riferimenti agli elementi della lista, usati per gestire il focus o lo scroll sugli item
+  const itemRefs = useRef([]);
+  
+  // Allineo il numero di riferimenti agli item con la lunghezza dei risultati
+  useEffect(() => {
+    itemRefs.current = itemRefs.current.slice(0, results.length);
+  }, [results]);
 
+  // Quando cambia l'indice evidenziato, assicuro che l'elemento attivo sia visibile nel dropdown
+  // Se è fuori dalla viewport del menu, scrollo il dropdown per mostrarlo correttamente
+  useEffect(() => {
+    if (highlightedIndex < 0 || !dropdownRef.current || !itemRefs.current[highlightedIndex]) return;
+
+    const dropdown = dropdownRef.current;
+    const item = itemRefs.current[highlightedIndex];
+
+    const dropdownTop = dropdown.scrollTop;
+    const dropdownHeight = dropdown.clientHeight;
+
+    const itemTop = item.offsetTop;
+    const itemHeight = item.offsetHeight;
+
+    if (itemTop < dropdownTop) {
+      dropdown.scrollTop = itemTop;
+    } else if (itemTop + itemHeight > dropdownTop + dropdownHeight) {
+      dropdown.scrollTop = itemTop + itemHeight - dropdownHeight;
+    }
+  }, [highlightedIndex]);
 
   // Effetto che si attiva ogni volta che cambia il testo della searchbar
   useEffect(() => {
@@ -114,12 +143,15 @@ const Searchbar = () => {
 
       {/* Dropdown dei risultati */}
       {results.length > 0 && (
-        <div className="searchbar-dropdown">
+        <div className="searchbar-dropdown"
+          ref={dropdownRef}
+          style={{ overflowY: 'auto' }}>
           {/* Filtra ogni risultato in un elemento cliccabile */}
           {results.map((videogame, index) => (
             <div
               key={videogame.id}
               className={`searchbar-item ${highlightedIndex === index ? 'active' : ''}`}
+              ref={(el) => (itemRefs.current[index] = el)}
               onClick={() => handleItemClick(videogame.slug)}
               style={{ cursor: 'pointer' }}
             >
