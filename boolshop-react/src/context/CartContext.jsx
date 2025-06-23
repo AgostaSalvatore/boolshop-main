@@ -15,7 +15,9 @@ export const CartProvider = ({ children }) => {
     }, [cartItems]);
 
     const addToCart = (product) => {
-        setCartItems(prev => [...prev, product]);
+        if (product.quantity && product.quantity > 0) {
+            setCartItems(prev => [...prev, product]);
+        }
     };
 
     const removeFromCart = (id) => {
