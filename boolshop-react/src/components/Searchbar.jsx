@@ -10,6 +10,9 @@ const Searchbar = () => {
   const [results, setResults] = useState([]);
   // Hook per navigare tra le pagine
   const navigate = useNavigate();
+  // Indice dell'elemento attualmente evidenziato nel menu a tendina (-1 significa nessuna selezione)
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
+
 
   // Effetto che si attiva ogni volta che cambia il testo della searchbar
   useEffect(() => {
@@ -32,6 +35,12 @@ const Searchbar = () => {
       setResults([]);
     }
   }, [searchText]);
+
+  // Resetto l'indice evidenziato ogni volta che cambiano i risultati
+  useEffect(() => {
+    setHighlightedIndex(-1);
+  }, [results]);
+
 
   // Gestisce il cambiamento del testo nella barra di ricerca
   const handleChange = (e) => {
@@ -59,12 +68,27 @@ const Searchbar = () => {
   // Gestisce la pressione del tasto Enter nella barra di ricerca
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      handleSearchClick();
-    }
-    if (e.key === 'Escape') {
+      if (highlightedIndex >= 0 && highlightedIndex < results.length) {
+        handleItemClick(results[highlightedIndex].slug);
+      } else {
+        handleSearchClick();
+      }
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault(); // impedisce lo scroll della pagina
+      setHighlightedIndex((prev) =>
+        prev < results.length - 1 ? prev + 1 : 0
+      );
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setHighlightedIndex((prev) =>
+        prev > 0 ? prev - 1 : results.length - 1
+      );
+    } else if (e.key === 'Escape') {
       setResults([]);
+      setHighlightedIndex(-1);
     }
   };
+
 
   return (
     <div className="searchbar-wrapper">
@@ -92,10 +116,10 @@ const Searchbar = () => {
       {results.length > 0 && (
         <div className="searchbar-dropdown">
           {/* Filtra ogni risultato in un elemento cliccabile */}
-          {results.map((videogame) => (
+          {results.map((videogame, index) => (
             <div
               key={videogame.id}
-              className="searchbar-item"
+              className={`searchbar-item ${highlightedIndex === index ? 'active' : ''}`}
               onClick={() => handleItemClick(videogame.slug)}
               style={{ cursor: 'pointer' }}
             >
