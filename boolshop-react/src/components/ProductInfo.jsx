@@ -21,7 +21,7 @@ const ProductInfo = ({ title, genre, price, release_year, software_house, discou
     setShowPopup(true) //Attiva il metodo
     setShowCartSidebar(true) //mostra la tendina laterale
 
-    setTimeout(() => setShowPopup(false), 2000);  // dopo 2 secondi nasconde il popup
+    setTimeout(() => setShowPopup(false), 1500);  // dopo 1,5 secondi nasconde il popup
   };
 
   const handleAddToWishlist = () => {
@@ -68,11 +68,11 @@ const ProductInfo = ({ title, genre, price, release_year, software_house, discou
       )}
 
       {/* Pulsanti di azione: lista desideri e aggiungi al carrello */}
-      <div className="d-flex gap-2 mb-4">
-        <button className="btn btn-outline-primary" onClick={handleAddToWishlist}>
+      <div className="d-flex gap-2 mb-4 mt-4">
+        <button className="btn btn-outline-dark rounded-4" onClick={handleAddToWishlist}>
           AGGIUNGI ALLA WISHLIST
         </button>
-        <button className="btn btn-outline-primary"
+        <button className="btn btn-outline-dark rounded-4"
           disabled={CurrentQuantity === 0}
           onClick={() => { handleAddToCart() }}>
           AGGIUNGI AL CARRELLO

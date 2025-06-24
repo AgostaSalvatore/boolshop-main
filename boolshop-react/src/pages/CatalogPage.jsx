@@ -339,7 +339,7 @@ const CatalogPage = () => {
                 )}
             </div>
             <nav>
-                <ul className="pagination justify-content-center"> 
+                <ul className="pagination justify-content-center">
                     {Array.from({ length: Math.ceil(filteredGames.length / gamesPerPage) }).map((_, index) => (
                         <li
                             key={index}

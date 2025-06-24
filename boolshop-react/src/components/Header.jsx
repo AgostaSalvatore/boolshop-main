@@ -20,7 +20,7 @@ const Header = () => {
                 {/* Pulsanti sulla destra */}
                 <div className="btn-container">
                     {/* Catalogo Giochi */}
-                    <NavLink to="/catalog">
+                    <NavLink to="/catalog" className="text-decoration-none">
                         <button className="btn btn-outline-primary">
                             <i className="bi bi-collection"></i>
                             <span className="d-none d-md-inline">Catalogo</span>
@@ -28,7 +28,7 @@ const Header = () => {
                     </NavLink>
 
                     {/* Wishlist */}
-                    <NavLink to={"/wishlist"}>
+                    <NavLink to={"/wishlist"} className="text-decoration-none">
                         <button className="btn btn-outline-primary">
                             <i className="bi bi-heart"></i>
                             <span className="d-none d-md-inline">Wishlist</span>
@@ -36,7 +36,7 @@ const Header = () => {
                     </NavLink>
 
                     {/* Carrello */}
-                    <NavLink to="/cart">
+                    <NavLink to="/cart" className="text-decoration-none">
                         <button className="btn btn-outline-primary">
                             <i className="bi bi-cart"></i>
                             <span className="d-none d-md-inline">Carrello</span>
