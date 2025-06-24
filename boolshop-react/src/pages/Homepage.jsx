@@ -35,7 +35,7 @@ const Homepage = () => {
     }, []);
 
     return (
-        <div className="container">
+        <div className="container mt-5">
             <div className="row">
                 <div className="col-12">
                     <div id="carouselExample" className="carousel slide custom-carousel">
@@ -48,7 +48,7 @@ const Homepage = () => {
                                         <div className="text-center">
                                             <img
                                                 src={game.image}
-                                                className="d-block mx-auto carousel-game-image"
+                                                className="d-block mx-auto carousel-game-image img-fluid"
                                                 alt={game.name || 'Game image'}
                                             />
                                         </div>
@@ -81,7 +81,7 @@ const Homepage = () => {
                     </div>
                 </div>
             </div>
-            <div className="row">
+            <div className="row mt-5">
                 <h2 className='m-2'>Giochi in offerta:</h2>
             </div>
             <div className='row mt-4'>

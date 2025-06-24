@@ -6,25 +6,104 @@
 
 /* HEADER */
 header {
-  background-color: #1e1e1e;
-  height: 90px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 10px 20px;
+  background-color: #1e1e1e;
+  height: 90px;
+  border-bottom: 1px solid #ddd;
 }
 
-.logo {
+header .logo {
   width: 120px;
   height: auto;
 }
 
-header .btn {
+
+/* BARRA DI RICERCA */
+.searchbar-wrapper {
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.searchbar-input-container {
+  display: flex;
+  align-items: center;
+  max-width: 400px;
+  flex-grow: 1;
+}
+
+.searchbar-input-container .form-control {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: none;
   height: 40px;
-  font-size: 16px;
-  border: 2px solid #e24c24;
+}
+
+.searchbar-input-container .btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 15px;
+  background-color: #e24c24 !important;
+  outline: none !important;
+  border: none;
+}
+
+.searchbar-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 4px;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.searchbar-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.searchbar-item:hover {
+  background-color: #f8f9fa;
+}
+
+.search-button:hover {
+  background-color: #c73e1d;
+  border-color: #c73e1d;
+}
+
+/* PULSANTI */
+header .btn-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-left: auto;
+}
+
+header .btn {
+  font-size: 15px;
+  padding: 8px 12px;
+  border: none;
   color: white;
   background-color: #e24c24;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
 }
 
 header .btn:hover {
@@ -32,21 +111,8 @@ header .btn:hover {
   color: white;
 }
 
-header .form-control {
-  width: 300px;
-  height: 40px;
+header.btn i {
   font-size: 16px;
-}
-
-header .btn-outline-primary {
-  border: none;
-}
-
-header .btn-outline-primary:focus,
-header .btn-outline-primary:active,
-header .btn-outline-primary:focus-visible {
-  outline: none;
-  box-shadow: none;
 }
 
 /* HOMEPAGE */
@@ -149,7 +215,7 @@ header .btn-outline-primary:focus-visible {
 }
 
 .searchbar-item.active {
-  background-color: #007bff;  
+  background-color: #007bff;
   color: white;
 }
 
@@ -331,4 +397,75 @@ main {
 
 .view-details-btn:hover {
   background: #2980b9;
+}
+
+/* Responsive per mobile */
+/* Responsive per mobile */
+@media (max-width: 768px) {
+
+  /* Header layout */
+  header {
+    display: flex;
+    flex-direction: row;
+    /* Dispone gli elementi in riga */
+    align-items: center;
+    /* Centra verticalmente gli elementi */
+    justify-content: space-between;
+    /* Sposta gli elementi ai lati */
+  }
+
+  /* Logo */
+  header .logo {
+    width: 100px;
+    /* Mantiene una dimensione adeguata per il logo */
+  }
+
+  /* Barra di ricerca */
+  .searchbar-input-container {
+    max-width: 300px;
+    /* Aumenta la larghezza della barra di ricerca */
+    margin-left: auto;
+    /* Centra la barra di ricerca */
+    margin-right: auto;
+    /* Centra la barra di ricerca */
+  }
+
+  .searchbar-input-container .form-control {
+    height: 35px;
+    /* Altezza uniforme su mobile */
+    font-size: 14px;
+    /* Dimensione del testo */
+  }
+
+  .searchbar-input-container .btn {
+    height: 35px;
+    /* Altezza uniforme su mobile */
+    padding: 0 10px;
+    /* Riduce il padding su mobile */
+  }
+
+  /* Pulsanti */
+  header .btn-container {
+    display: flex;
+    justify-content: flex-end;
+    /* Sposta i pulsanti sulla destra */
+    gap: 10px;
+    /* Spazio tra i pulsanti */
+    width: auto;
+    /* Mantiene i pulsanti sulla destra */
+  }
+
+  header .btn {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  header .btn i {
+    font-size: 14px;
+  }
+
+  header .btn span {
+    display: none;
+    /* Nasconde il testo dei pulsanti su mobile */
+  }
 }

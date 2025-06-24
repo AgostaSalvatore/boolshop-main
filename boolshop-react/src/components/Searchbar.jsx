@@ -155,7 +155,7 @@ const Searchbar = () => {
         {/* Input di ricerca */}
         <input
           type="text"
-          className="searchbar-input flex-grow-1"
+          className="form-control rounded-start"
           placeholder="Search videogames..."
           value={searchText}
           onChange={handleChange}
@@ -163,11 +163,10 @@ const Searchbar = () => {
         />
         {/* Pulsante di ricerca */}
         <button
-          className="btn btn-primary search-button mx-2"
+          className="btn btn-primary rounded-end"
           onClick={handleSearchClick}
-          aria-label="Cerca"
         >
-          Cerca
+          <i className='bi bi-search'></i>
         </button>
       </div>
 
