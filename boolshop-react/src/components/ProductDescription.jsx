@@ -13,7 +13,7 @@ const ProductDescription = ({ description_HTML }) => {
                         <h2 className="mb-4">Descrizione del Prodotto</h2>
 
                         {/* Utilizziamo dangerouslySetInnerHTML per renderizzare l'HTML formattato */}
-                        <div className="lead" dangerouslySetInnerHTML={{ __html: description_HTML }} />
+                        <div className="lead game-description" dangerouslySetInnerHTML={{ __html: description_HTML }} />
                     </div>
                 </div>
             </div>

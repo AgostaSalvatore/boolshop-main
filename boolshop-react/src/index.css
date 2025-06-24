@@ -469,3 +469,37 @@ main {
     /* Nasconde il testo dei pulsanti su mobile */
   }
 }
+
+/* Fonts */
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+h1,
+h2,
+h3,
+.btn,
+.game-title,
+header,
+.product-title {
+  font-family: 'Orbitron', sans-serif;
+}
+
+/*  */
+/* Titolo videogioco */
+.title-game {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: #ff6f00;
+  margin-bottom: 1rem;
+}
+
+/* Descrizione videogioco */
+.game-description {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: black
+}

@@ -9,7 +9,7 @@ const ProductGallery = ({ images, productName }) => {
             src={images}
             alt={productName}
             className="img-fluid rounded shadow"
-            style={{maxHeight: '500px', objectFit: 'cover'}}
+            style={{ maxHeight: '500px', objectFit: 'cover' }}
           />
           {/* Nome del prodotto sotto l'immagine */}
           <h2 className="mt-4 mb-0">{productName}</h2>
