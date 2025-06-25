@@ -2,6 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const CartContext = createContext(); // creo il contenitore
 
+
 export const useCart = () => useContext(CartContext); //hook per accedere al contesto
 
 export const CartProvider = ({ children }) => {
@@ -52,12 +53,14 @@ export const CartProvider = ({ children }) => {
         setCartItems(prev => prev.filter(item => item.id !== id));
     };
 
+
+
     const value = {
         cartItems,
         addToCart,
         removeFromCart,
         decreaseQuantity,
-        increaseQuantity
+        increaseQuantity,
     };
 
     return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

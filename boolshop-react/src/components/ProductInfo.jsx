@@ -36,7 +36,7 @@ const ProductInfo = ({ title, genre, price, release_year, software_house, discou
     <>
       {/* PopUp per il carrello */}
       {showPopup && (
-        <div className="position-fixed top-0 end-0 p-3" style={{ zIndex: 1050 }}>
+        <div className="position-fixed top-0 start-0 p-3" style={{ zIndex: 1050 }}>
           <div className="toast show align-items-center text-white bg-success border-0">
             <div className="d-flex">
               <div className="toast-body">
