@@ -125,16 +125,16 @@ const CatalogPage = () => {
     // Effetto per caricare i generi e i giochi all'avvio
     useEffect(() => {
         loadGenres();
-        
+
         // Leggi i parametri dall'URL
         const searchParams = new URLSearchParams(location.search);
         const genreParam = searchParams.get('genre');
         const softwareHouseParam = searchParams.get('software_house');
-        
+
         // Imposta i filtri in base ai parametri dell'URL o usa i valori predefiniti
         setSelectedGenre(genreParam || "tutti");
         setSelectedSoftwareHouse(softwareHouseParam || "tutte");
-        
+
         // Non chiamiamo loadGames() qui perché verrà chiamato dall'effetto che dipende da selectedGenre e selectedSoftwareHouse
     }, [location.search]);
 
@@ -323,24 +323,41 @@ const CatalogPage = () => {
                         )}
                         {viewMode === 'grid' ? (
                             // Modalità griglia
-                            currentGames.map((game) => (
-                                <div key={game.id} className="col-md-4 mb-4">
-                                    <div className="card">
-                                        <img src={game.image} className="card-img-top" alt={game.title} />
-                                        <div className="card-body">
-                                            <h5 className="card-title">{game.title}</h5>
-                                            <p className="card-text">Prezzo: €{game.price}</p>
-                                            <button
-                                                className="btn btn-primary"
-                                                onClick={() => navigate(`/${game.slug}`)} // Naviga alla pagina di dettaglio con slug
-                                            >
-                                                Dettagli
-                                            </button>
-                                            <button onClick={() => { handleAddToCart(game) }} type="button" className="btn btn-danger mt-2">Aggiungi al carrello</button>
+                            <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+                                {currentGames.map((game) => (
+                                    <div key={game.id} className="col">
+                                        <div className="card h-100 shadow-sm">
+                                            <div className="card-img-container" style={{ height: '200px', overflow: 'hidden' }}>
+                                                <img
+                                                    src={game.image}
+                                                    className="card-img-top"
+                                                    alt={game.title}
+                                                    style={{ objectFit: 'cover', height: '100%', width: '100%' }}
+                                                />
+                                            </div>
+                                            <div className="card-body d-flex flex-column">
+                                                <h5 className="card-title text-truncate" title={game.title}>{game.title}</h5>
+                                                <p className="card-text fw-bold text-primary">€{game.price}</p>
+                                                <div className="mt-auto d-grid gap-2">
+                                                    <button
+                                                        className="btn btn-outline-primary"
+                                                        onClick={() => navigate(`/${game.slug}`)}
+                                                    >
+                                                        Dettagli
+                                                    </button>
+                                                    <button
+                                                        onClick={() => { handleAddToCart(game) }}
+                                                        type="button"
+                                                        className="btn btn-danger"
+                                                    >
+                                                        Aggiungi al carrello
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))
+                                ))}
+                            </div>
                         ) : (
                             // Modalità lista
                             currentGames.map((game) => (
@@ -356,7 +373,7 @@ const CatalogPage = () => {
                                                     <p className="card-text">Prezzo: €{game.price}</p>
                                                     <button
                                                         className="btn btn-primary"
-                                                        onClick={() => navigate(`/${game.id}`)} // Naviga alla pagina di dettaglio
+                                                        onClick={() => navigate(`/${game.slug}`)} // Naviga alla pagina di dettaglio
                                                     >
                                                         Dettagli
                                                     </button>
@@ -372,7 +389,7 @@ const CatalogPage = () => {
                 )}
             </div>
             <nav>
-                <ul className="pagination justify-content-center">
+                <ul className="pagination justify-content-center mt-5">
                     {Array.from({ length: Math.ceil(filteredGames.length / gamesPerPage) }).map((_, index) => (
                         <li
                             key={index}
