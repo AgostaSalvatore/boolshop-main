@@ -35,10 +35,10 @@ const DiscountedGamesRow = ({ games, }) => {
                 </div>
             </div>
         )}
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 mb-5">
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 mb-5 justify-content-center">
             {games.slice(0, 5).map((game) => ( // Genera solo 5 card randomiche
-                <div key={game.id} className="col">
-                    <div className="card h-100 shadow-sm">
+                <div key={game.id} className="col d-flex justify-content-center" style={{ maxWidth: '300px' }}>
+                    <div className="card h-100 shadow-sm w-100">
                         <div className="card-img-container" style={{ height: '200px', overflow: 'hidden' }}>
                             <img
                                 src={game.image}
