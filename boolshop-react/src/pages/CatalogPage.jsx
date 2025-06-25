@@ -125,11 +125,18 @@ const CatalogPage = () => {
     // Effetto per caricare i generi e i giochi all'avvio
     useEffect(() => {
         loadGenres();
-        // Imposta i filtri per mostrare tutti i giochi all'avvio
-        setSelectedGenre("tutti");
-        setSelectedSoftwareHouse("tutte");
-        loadGames();
-    }, []);
+        
+        // Leggi i parametri dall'URL
+        const searchParams = new URLSearchParams(location.search);
+        const genreParam = searchParams.get('genre');
+        const softwareHouseParam = searchParams.get('software_house');
+        
+        // Imposta i filtri in base ai parametri dell'URL o usa i valori predefiniti
+        setSelectedGenre(genreParam || "tutti");
+        setSelectedSoftwareHouse(softwareHouseParam || "tutte");
+        
+        // Non chiamiamo loadGames() qui perché verrà chiamato dall'effetto che dipende da selectedGenre e selectedSoftwareHouse
+    }, [location.search]);
 
     // Effetto per ricaricare i giochi quando cambiano i filtri
     useEffect(() => {
@@ -170,12 +177,35 @@ const CatalogPage = () => {
         setTimeout(() => setShowPopup(false), 2000);  // dopo 2 secondi nasconde il popup
     };
 
+    // Funzione per aggiornare l'URL con i filtri selezionati
+    const updateUrlWithFilters = (genre, softwareHouse) => {
+        const params = new URLSearchParams(); // Crea un nuovo URLSearchParams
+
+        // Aggiungi i parametri all'URL solo se sono significativi
+        if (genre && genre !== "" && genre !== "tutti") {
+            params.set('genre', genre); // Aggiunge il genere come parametro
+        }
+
+        if (softwareHouse && softwareHouse !== "" && softwareHouse !== "tutte") {
+            params.set('software_house', softwareHouse); // Aggiunge la software house come parametro
+        }
+
+        // Costruisci il nuovo URL con i parametri
+        const newUrl = `${window.location.pathname}${params.toString() ? `?${params.toString()}` : ''}`; // Costruisce il nuovo URL con i parametri
+
+        // Aggiorna l'URL del browser senza ricaricare la pagina
+        navigate(newUrl, { replace: true });
+    };
+
     // Funzione per gestire il cambio di genere
     const handleGenreChange = (e) => {
         const newGenre = e.target.value;
         setSelectedGenre(newGenre);
         if (newGenre === "") {
             setDefaultFilters();
+        } else {
+            // Aggiorna l'URL con il nuovo genere e la software house corrente
+            updateUrlWithFilters(newGenre, selectedSoftwareHouse);
         }
     };
 
@@ -185,6 +215,9 @@ const CatalogPage = () => {
         setSelectedSoftwareHouse(newSoftwareHouse);
         if (newSoftwareHouse === "") {
             setDefaultFilters();
+        } else {
+            // Aggiorna l'URL con il genere corrente e la nuova software house
+            updateUrlWithFilters(selectedGenre, newSoftwareHouse);
         }
     };
 
