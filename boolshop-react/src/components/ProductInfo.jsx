@@ -95,7 +95,7 @@ const ProductInfo = ({ title, genre, price, release_year, software_house, discou
         </div>
         <div className="col-sm-6">
           {/* Prezzo del prodotto */}
-          <strong>Prezzo:</strong> {price}
+          <strong>Prezzo:</strong> {price}€
         </div>
         <div className="col-sm-6">
           {/* Anno di rilascio */}
@@ -107,7 +107,7 @@ const ProductInfo = ({ title, genre, price, release_year, software_house, discou
         </div>
         <div className="col-sm-6">
           {/* Sconto applicato */}
-          <strong>Sconto:</strong> {discount}
+          <strong>Sconto:</strong> {discount}%
         </div>
         <div className="col-sm-6">
           {/* Sconto applicato */}
