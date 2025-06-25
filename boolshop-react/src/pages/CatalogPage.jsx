@@ -233,7 +233,7 @@ const CatalogPage = () => {
         <>
 
             <CartSideBar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
-            <div className="container mt-5">
+            <div className="container-lg mt-5">
                 <div className="d-flex justify-content-between align-items-center mb-4">
                     <div>
                         <h1>Catalogo Giochi</h1>
@@ -304,7 +304,7 @@ const CatalogPage = () => {
                         <p>Non ci sono giochi che corrispondono ai filtri selezionati.</p>
                     </div>
                 ) : (
-                    <div className="row">
+                    <div className="row mx-0">
                         {showPopup && (
                             <div className="position-fixed top-0 end-0 p-3" style={{ zIndex: 1050 }}>
                                 <div className="toast show align-items-center text-white bg-success border-0">
@@ -361,23 +361,54 @@ const CatalogPage = () => {
                         ) : (
                             // Modalità lista
                             currentGames.map((game) => (
-                                <div key={game.id} className="col-12 mb-4">
-                                    <div className="card">
+                                <div key={game.id} className="col-12 mb-3 px-2">
+                                    <div className="card shadow-sm w-100">
                                         <div className="row g-0">
-                                            <div className="col-md-4">
-                                                <img src={game.image} className="img-fluid rounded-start" alt={game.title} />
+                                            <div className="col-md-3">
+                                                <div style={{ height: '120px', overflow: 'hidden' }} className="h-100 d-flex align-items-center">
+                                                    <img
+                                                        src={game.image}
+                                                        className="img-fluid rounded-start"
+                                                        alt={game.title}
+                                                        style={{ objectFit: 'cover', height: '100%', width: '100%' }}
+                                                    />
+                                                </div>
                                             </div>
-                                            <div className="col-md-8">
-                                                <div className="card-body">
-                                                    <h5 className="card-title">{game.title}</h5>
-                                                    <p className="card-text">Prezzo: €{game.price}</p>
-                                                    <button
-                                                        className="btn btn-primary"
-                                                        onClick={() => navigate(`/${game.slug}`)} // Naviga alla pagina di dettaglio
-                                                    >
-                                                        Dettagli
-                                                    </button>
-                                                    <button onClick={() => { handleAddToCart(game) }} type="button" className="btn btn-danger mt-2">Aggiungi al carrello</button>
+                                            <div className="col-md-9 ps-md-0">
+                                                <div className="card-body h-100 d-flex flex-column py-2">
+                                                    <div className="d-flex justify-content-between align-items-start mb-1">
+                                                        <h5 className="card-title mb-0 fs-6" title={game.title}>{game.title}</h5>
+                                                        <span className="badge bg-primary">{game.software_house}</span>
+                                                    </div>
+                                                    <div className="d-flex align-items-center mb-1">
+                                                        <p className="card-text fw-bold text-primary fs-5 mb-0">€{game.price}</p>
+                                                        {game.discount > 0 && (
+                                                            <span className="badge bg-danger ms-2">-{game.discount}%</span>
+                                                        )}
+                                                    </div>
+                                                    <div className="card-text mb-2">
+                                                        {game.genres && game.genres.split(',').map((genre, i) => (
+                                                            <span key={i} className="badge bg-light text-dark me-1 mb-1">{genre.trim()}</span>
+                                                        ))}
+                                                        <div className='mt-2'>
+                                                            {game.description}
+                                                        </div>
+                                                    </div>
+                                                    <div className="mt-auto d-flex gap-2">
+                                                        <button
+                                                            className="btn btn-sm btn-outline-primary flex-grow-1"
+                                                            onClick={() => navigate(`/${game.slug}`)}
+                                                        >
+                                                            Dettagli
+                                                        </button>
+                                                        <button
+                                                            onClick={() => { handleAddToCart(game) }}
+                                                            type="button"
+                                                            className="btn btn-sm btn-danger flex-grow-1"
+                                                        >
+                                                            Aggiungi al carrello
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
