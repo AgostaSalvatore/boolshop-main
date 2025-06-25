@@ -2,9 +2,15 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import Cart from './Cart'
 import Searchbar from './Searchbar'
-// import { useState } from 'react'
+import { useCart } from '../context/CartContext'
 
 const Header = () => {
+    // Utilizzo il hook useCart per accedere ai dati del carrello
+    const { cartItems } = useCart();
+
+    // Calcolo il numero totale di prodotti nel carrello (somma delle quantità)
+    const cartItemsCount = cartItems.reduce((total, item) => total + item.quantity, 0);
+
     return (
         <>
             <header className="py-3">
@@ -39,11 +45,17 @@ const Header = () => {
                             </NavLink>
 
                             {/* Carrello */}
-                            <NavLink to="/cart" className="text-decoration-none">
+                            <NavLink to="/cart" className="text-decoration-none position-relative">
                                 <button className="btn btn-outline-primary">
                                     <i className="bi bi-cart"></i>
                                     <span className="d-none d-md-inline">Carrello</span>
                                 </button>
+                                {cartItemsCount > 0 && (
+                                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        {cartItemsCount}
+                                        <span className="visually-hidden">prodotti nel carrello</span>
+                                    </span>
+                                )}
                             </NavLink>
                         </div>
                     </div>
