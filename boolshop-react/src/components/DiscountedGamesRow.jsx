@@ -35,17 +35,35 @@ const DiscountedGamesRow = ({ games, }) => {
                 </div>
             </div>
         )}
-        <div className="discounted-games-container d-flex justify-content-center">
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 mb-5">
             {games.slice(0, 5).map((game) => ( // Genera solo 5 card randomiche
-                <div key={game.id} className="card discounted-game-card me-3" style={{ width: '200px' }}>
-                    <Link to={`/${game.slug}`}>
-                        <img src={game.image} className="card-img-top" alt={game.title || game.name} />
-                    </Link>
-                    <div className="card-body">
-                        <h5 className="card-title">{game.title || game.name}</h5>
-                        <p className="card-text">Prezzo: €{game.price}</p>
-                        <p className="card-text text-danger">Sconto: {game.discount}%</p>
-                        <button onClick={() => { handleAddToCart(game) }} type="button" className="btn btn-danger">Aggiungi al carrello</button>
+                <div key={game.id} className="col">
+                    <div className="card h-100 shadow-sm">
+                        <div className="card-img-container" style={{ height: '200px', overflow: 'hidden' }}>
+                            <img
+                                src={game.image}
+                                className="card-img-top"
+                                alt={game.title || game.name}
+                                style={{ objectFit: 'cover', height: '100%', width: '100%' }}
+                            />
+                        </div>
+                        <div className="card-body d-flex flex-column">
+                            <h5 className="card-title text-truncate" title={game.title || game.name}>{game.title || game.name}</h5>
+                            <div className="d-flex justify-content-between align-items-center">
+                                <p className="card-text fw-bold text-primary mb-0">€{game.price}</p>
+                                <span className="badge bg-danger">-{game.discount}%</span>
+                            </div>
+                            <div className="mt-auto d-grid gap-2 pt-3">
+                                <Link to={`/${game.slug}`} className="btn btn-outline-primary">Dettagli</Link>
+                                <button
+                                    onClick={() => { handleAddToCart(game) }}
+                                    type="button"
+                                    className="btn btn-danger"
+                                >
+                                    Aggiungi al carrello
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             ))}
