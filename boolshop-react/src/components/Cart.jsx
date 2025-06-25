@@ -77,7 +77,7 @@ const Cart = () => {
                   <div className="ms-auto d-flex align-items-center gap-2">
                     {/* Pulsante diminusci, aumenta e rimuovi dal carrello */}
                     <button
-                      className="btn btn-outline-warning"
+                      className="btn btn-outline-danger"
                       onClick={() => decreaseQuantity(item.id)}
                     >
                       <i className="bi bi-dash"></i>
