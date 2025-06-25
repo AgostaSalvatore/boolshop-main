@@ -285,6 +285,10 @@ footer {
   background-color: #1e1e1e;
 }
 
+footer .logo {
+  width: 100px;
+}
+
 /* CHECK-OUT */
 .chekout-form {
   border: 2px solid black;
