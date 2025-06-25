@@ -5,6 +5,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import CartSideBar from './CartSideBar';
 
+
+
 // Componente che mostra le informazioni principali del prodotto e i pulsanti azione
 const ProductInfo = ({ title, genre, price, release_year, software_house, discount, product, quantity, slug, initialQuantity }) => {
   // Recupera la funzione per aggiungere al carrello dal context
@@ -69,13 +71,15 @@ const ProductInfo = ({ title, genre, price, release_year, software_house, discou
 
       {/* Pulsanti di azione: lista desideri e aggiungi al carrello */}
       <div className="d-flex gap-2 mb-4 mt-4">
-        <button className="btn btn-outline-dark rounded-4" onClick={handleAddToWishlist}>
-          AGGIUNGI ALLA WISHLIST
+        <button className="btn btn-outline-danger" onClick={handleAddToWishlist}>
+          +
+          <i className="bi bi-heart"></i>
         </button>
-        <button className="btn btn-outline-dark rounded-4"
+        <button className="btn btn-outline-danger"
           disabled={CurrentQuantity === 0}
           onClick={() => { handleAddToCart() }}>
-          AGGIUNGI AL CARRELLO
+          +
+          <i className="bi bi-cart"></i>
         </button>
       </div>
 
