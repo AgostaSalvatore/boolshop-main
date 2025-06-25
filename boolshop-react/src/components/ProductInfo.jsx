@@ -70,18 +70,36 @@ const ProductInfo = ({ title, genre, price, release_year, software_house, discou
       )}
 
       {/* Pulsanti di azione: lista desideri e aggiungi al carrello */}
-      <div className="d-flex gap-2 mb-4 mt-4">
-        <button className="btn btn-outline-danger" onClick={handleAddToWishlist}>
-          +
-          <i className="bi bi-heart"></i>
-        </button>
-        <button className="btn btn-outline-danger"
-          disabled={CurrentQuantity === 0}
-          onClick={() => { handleAddToCart() }}>
-          +
-          <i className="bi bi-cart"></i>
-        </button>
+      <div className="d-flex flex-wrap gap-2 mb-4 mt-4">
+        {/* Versione DESKTOP e TABLET */}
+        <div className="d-none d-md-flex gap-2 w-100 justify-content-start">
+          <button className="btn btn-outline-dark rounded-4 w-auto" onClick={handleAddToWishlist}>
+            AGGIUNGI ALLA WISHLIST
+          </button>
+          <button
+            className="btn btn-outline-dark rounded-4 w-auto"
+            disabled={CurrentQuantity === 0}
+            onClick={handleAddToCart}
+          >
+            AGGIUNGI AL CARRELLO
+          </button>
+        </div>
+
+        {/* Versione MOBILE */}
+        <div className="d-flex d-md-none gap-2 w-100 justify-content-start">
+          <button className="btn btn-outline-danger" onClick={handleAddToWishlist}>
+            + <i className="bi bi-heart"></i>
+          </button>
+          <button
+            className="btn btn-outline-danger"
+            disabled={CurrentQuantity === 0}
+            onClick={handleAddToCart}
+          >
+            + <i className="bi bi-cart"></i>
+          </button>
+        </div>
       </div>
+
 
       {/* Product details */}
       <div className="row g-3">
