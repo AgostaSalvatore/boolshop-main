@@ -81,7 +81,7 @@ const CheckOut = () => {
                     <div className="row mt-2">
                         <div className="col-12 d-flex justify-content-center">
                             <div className="input-group w-50">
-                                <span className="input-group-text w-50">Telefono*</span>
+                                <span className="input-group-text w-50">Telefono</span>
                                 <input type="text" aria-label="telefono" id="telefono" className="form-control w-25"></input>
                             </div>
                         </div>
@@ -120,14 +120,6 @@ const CheckOut = () => {
                             <div className="input-group w-50">
                                 <span className="input-group-text w-50">Provincia*</span>
                                 <input type="text" aria-label="provincia" id="provincia" className="form-control w-25"></input>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row mt-2">
-                        <div className="col-12 d-flex justify-content-center">
-                            <div className="input-group w-50">
-                                <span className="input-group-text w-50">Regione*</span>
-                                <input type="text" aria-label="regione" id="regione" className="form-control w-25"></input>
                             </div>
                         </div>
                     </div>
