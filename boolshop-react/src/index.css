@@ -400,7 +400,6 @@ main {
 }
 
 /* Responsive per mobile */
-/* Responsive per mobile */
 @media (max-width: 768px) {
 
   /* Header layout */
@@ -468,7 +467,21 @@ main {
     display: none;
     /* Nasconde il testo dei pulsanti su mobile */
   }
+
+  .discounted-games-container {
+    flex-direction: column;
+    align-items: center;
+    /* Centra le card nella colonna */
+  }
+
+  .discounted-games-container .card {
+    width: 90%;
+    /* Occupa quasi tutta la larghezza dello schermo */
+    max-width: 400px;
+    /* Limite massimo per non essere troppo larga */
+  }
 }
+
 
 /* Fonts */
 body {

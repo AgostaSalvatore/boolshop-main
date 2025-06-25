@@ -37,7 +37,7 @@ const DiscountedGamesRow = ({ games, }) => {
         )}
         <div className="discounted-games-container d-flex justify-content-center">
             {games.slice(0, 5).map((game) => ( // Genera solo 5 card randomiche
-                <div key={game.id} className="card me-3" style={{ width: '200px' }}>
+                <div key={game.id} className="card discounted-game-card me-3" style={{ width: '200px' }}>
                     <Link to={`/${game.slug}`}>
                         <img src={game.image} className="card-img-top" alt={game.title || game.name} />
                     </Link>
